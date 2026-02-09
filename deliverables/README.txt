@@ -1,5 +1,7 @@
 Deliverables (Submission Pack)
 
+Github Repo: https://github.com/dirgnic/GrowthLab
+
 This folder is a submission-oriented index of what each challenge asked for,
 where it lives in the app, and how to demonstrate it quickly.
 

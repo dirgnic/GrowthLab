@@ -1,0 +1,49 @@
+Demo Runbook (What to Click / What to Record)
+
+Goal: record short clips (30–90s each) that prove the system is running end-to-end.
+
+Prereqs
+1. Start: npm start
+2. Verify API: http://localhost:3000/api → click “Check /api/health”
+
+Clip 1 — Paid Media market entry creates demand + captures early users
+- Open: http://localhost:3000/challenges/paid-media-a
+- Click Prototype tab → open demo (/tools/admin-audit)
+- Fill inputs → Run audit → show report → submit waitlist
+
+Clip 2 — Creative system E2E (AI → save → human approve → audit)
+- Open: http://localhost:3000/tools/creative-generator
+- Toggle Use AI pipeline (optional)
+- Click Generate + save required set
+- Open: http://localhost:3000/tools/creative-library
+- Approve at least 3 creatives
+- Open: http://localhost:3000/tools/creative-audit → show PASS/INCOMPLETE and counts
+
+Clip 3 — Media step (image tool) working
+- Open: http://localhost:3000/tools/media-studio
+- Select a creative artifact
+- Generate SVG mock (always works)
+- Optional: toggle Use OpenRouter image model → generate AI image → save media artifact
+
+Clip 4 — Growth AI tool (10×) running
+- Open: http://localhost:3000/tools/growth-ai-studio
+- Toggle AI pipeline (or deterministic)
+- Generate plan → click Save experiment plan (shows artifact id)
+
+Clip 5 — Product prototypes (system behavior)
+Pick 2:
+- Kinetic: http://localhost:3000/tools/kinetic-incentives
+- Pathway: http://localhost:3000/tools/pathway-referrals
+- Capsule: http://localhost:3000/tools/capsule-summary
+
+Clip 6 — Calls onboarding + voicemail triage
+- Onboarding: http://localhost:3000/tools/calls-onboarding (wizard + scenario sim)
+- Voicemail: http://localhost:3000/tools/voicemail-triage (add a voicemail, mark resolved)
+
+Clip 7 — Dashboard proof
+- Open: http://localhost:3000/dashboard
+- Show event counts + waitlist entries growing
+
+Where to save clips
+- Put recordings in deliverables/screen_recordings/ (videos are gitignored)
+

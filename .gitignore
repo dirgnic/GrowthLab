@@ -29,6 +29,7 @@ frontend/build/
 backend/.env
 
 ## Deliverables (keep repo small)
-deliverables/screen_recordings/*.mp4
-deliverables/screen_recordings/*.mov
-deliverables/screen_recordings/*.mkv
+deliverables/screen_recordings/.DS_Store
+deliverables.zip
+deliverables *.zip
+deliverables*.zip
