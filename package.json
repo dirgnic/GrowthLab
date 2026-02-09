@@ -1,0 +1,13 @@
+{
+  "name": "heidi_smth",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "start": "bash scripts/dev.sh",
+    "dev": "bash scripts/dev.sh",
+    "backend": "python3 backend/app.py",
+    "frontend": "npm --prefix frontend start",
+    "build": "npm --prefix frontend run build"
+  }
+}
+
