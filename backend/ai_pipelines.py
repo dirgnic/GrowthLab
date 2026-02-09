@@ -4,6 +4,7 @@ import json
 from typing import Any
 
 from ai_client import chat_completions_create, extract_chat_images, extract_chat_text
+from tools import generate_creatives as deterministic_generate_creatives
 
 
 def _creative_schema() -> dict[str, Any]:
@@ -18,7 +19,7 @@ def _creative_schema() -> dict[str, Any]:
                 "properties": {
                     "creatives": {
                         "type": "array",
-                        "minItems": 3,
+                        "minItems": 1,
                         "items": {
                             "type": "object",
                             "additionalProperties": False,
@@ -42,14 +43,42 @@ def _creative_schema() -> dict[str, Any]:
     }
 
 
+def _slug(value: str) -> str:
+    return value.strip().lower().replace(" ", "-")
+
+
+def _unique_lower_tags(tags: Any, *, stage: str, persona: str, market: str, language: str) -> list[str]:
+    base = [stage, _slug(persona), _slug(market), language]
+    out: list[str] = []
+    seen: set[str] = set()
+    items: list[Any] = []
+    if isinstance(tags, list):
+        items.extend(tags)
+    items.extend(base)
+    for t in items:
+        if not isinstance(t, str):
+            continue
+        norm = t.strip().lower()
+        if not norm or norm in seen:
+            continue
+        seen.add(norm)
+        out.append(norm)
+    return out
+
+
 def generate_creatives_via_openai(inputs: dict[str, Any], *, model: str) -> dict[str, Any]:
     persona = (inputs.get("persona") or "GP").strip()
     market = (inputs.get("market") or "Australia").strip()
     stage = (inputs.get("funnelStage") or "Awareness").strip()
     language = (inputs.get("language") or "en").strip().lower()
+    try:
+        count = int(inputs.get("count") or 3)
+    except (TypeError, ValueError):
+        count = 3
+    count = max(1, min(count, 6))
 
     prompt = f"""
-You are generating paid media creatives for Heidi.
+You are generating paid media creatives for Heidi (B2B tool for clinicians/admin staff).
 Inputs:
 - Persona: {persona}
 - Market: {market}
@@ -57,10 +86,12 @@ Inputs:
 - Language: {language}
 
 Requirements:
-- Return 3-5 creatives.
+- Return EXACTLY {count} creatives in the `creatives` array.
+- Each creative must be a distinct angle; no repeated headlines.
+- Audience is clinicians/practice managers, not patients. Avoid consumer health-app framing.
 - No medical claims; no patient data; keep it professional.
 - Keep copy short enough for social ads.
-- Provide tags that help a creative library: stage, persona, market, language, channel_guess.
+- Provide tags as unique lowercase strings; include stage, persona, market, language, channel_guess.
 - Include platform and creativeDirection fields that a designer/editor can execute.
 """
 
@@ -83,8 +114,24 @@ Requirements:
         parsed = {"creatives": [], "notes": f"Non-JSON response: {text[:300]}..."}
 
     creatives = parsed.get("creatives") or []
+    if len(creatives) < count:
+        det = deterministic_generate_creatives({"persona": persona, "market": market, "funnelStage": stage, "language": language})
+        for c in det.get("creatives") or []:
+            creatives.append(
+                {
+                    "headline": c.get("headline", ""),
+                    "primaryText": c.get("primaryText", ""),
+                    "cta": c.get("cta", "Learn more"),
+                    "format": c.get("format", "Square (1080×1080) - static"),
+                    "platform": c.get("platform", "Meta (Feed)"),
+                    "creativeDirection": c.get("creativeDirection", ""),
+                    "tags": c.get("tags") or [],
+                }
+            )
+            if len(creatives) >= count:
+                break
     normalized = []
-    for idx, c in enumerate(creatives[:5], start=1):
+    for idx, c in enumerate(creatives[:count], start=1):
         normalized.append(
             {
                 "id": f"{stage.lower()}-ai-{idx}",
@@ -95,7 +142,7 @@ Requirements:
                 "headline": c.get("headline", ""),
                 "primaryText": c.get("primaryText", ""),
                 "cta": c.get("cta", "Learn more"),
-                "tags": c.get("tags") or [stage.lower(), persona.lower().replace(" ", "-"), market.lower().replace(" ", "-"), language],
+                "tags": _unique_lower_tags(c.get("tags"), stage=stage.lower(), persona=persona, market=market, language=language),
                 "format": c.get("format", "Square (1080×1080) - static"),
                 "platform": c.get("platform", "Meta (Feed)"),
                 "creativeDirection": c.get("creativeDirection", ""),

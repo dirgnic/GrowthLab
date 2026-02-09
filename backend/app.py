@@ -74,6 +74,125 @@ def creative_generate():
     inputs = payload.get("inputs") or {}
     return jsonify(generate_creatives(inputs))
 
+@app.route('/api/tools/creative/seed-required-set', methods=['POST'])
+def creative_seed_required_set():
+    """
+    Create (or tag) a required creative set for the Creative System Audit:
+    - 3 awareness (EN)
+    - 2 mid-funnel (EN)
+    - 1 conversion (EN)
+    - 1 non-English (any stage; we use Mid-Funnel)
+    This is deterministic (no AI key required) so the audit can always be made PASS.
+    """
+    payload = request.get_json(silent=True) or {}
+    task_id = (payload.get("taskId") or "paid-media-b").strip()
+    base_inputs = payload.get("inputs") or {}
+    persona = (base_inputs.get("persona") or "GP").strip()
+    market = (base_inputs.get("market") or "Australia").strip()
+    base_language = (base_inputs.get("language") or "en").strip().lower()
+    non_english_language = (payload.get("nonEnglishLanguage") or ("es" if base_language == "en" else "en")).strip().lower()
+    if non_english_language == "en":
+        non_english_language = "es"
+
+    plan = [
+        {"funnelStage": "Awareness", "language": "en", "n": 3},
+        {"funnelStage": "Mid-Funnel", "language": "en", "n": 2},
+        {"funnelStage": "Conversion", "language": "en", "n": 1},
+        {"funnelStage": "Mid-Funnel", "language": non_english_language, "n": 1},
+    ]
+
+    with connect() as conn:
+        existing = list_artifacts(conn, task_id=task_id, type="creative", limit=500)
+        headline_seen: set[str] = set()
+        for a in existing:
+            h = ((a.get("contentJson") or {}).get("headline") or "").strip()
+            if h:
+                headline_seen.add(h.lower())
+
+        created_ids: list[str] = []
+        updated_ids: list[str] = []
+
+        def promote_candidates(stage: str, language: str, needed: int) -> int:
+            if needed <= 0:
+                return 0
+            candidates = []
+            for a in existing:
+                if (a.get("tags") or {}).get("requiredSet"):
+                    continue
+                c = a.get("contentJson") or {}
+                if c.get("funnelStage") != stage:
+                    continue
+                lang = (c.get("language") or "en").strip().lower()
+                if lang != language:
+                    continue
+                candidates.append(a)
+
+            promoted = 0
+            for a in candidates[:needed]:
+                tags = dict(a.get("tags") or {})
+                tags["requiredSet"] = True
+                tags.setdefault("funnelStage", stage)
+                tags.setdefault("persona", persona)
+                tags.setdefault("market", market)
+                tags.setdefault("language", language)
+                tags.setdefault("source", "seed-required-set:promote")
+                update_artifact(conn, a["id"], tags=tags)
+                updated_ids.append(a["id"])
+                promoted += 1
+            return promoted
+
+        for item in plan:
+            stage = item["funnelStage"]
+            language = item["language"]
+            needed = int(item["n"])
+
+            promoted = promote_candidates(stage, language, needed)
+            needed -= promoted
+
+            if needed <= 0:
+                continue
+
+            out = generate_creatives({"persona": persona, "market": market, "funnelStage": stage, "language": language})
+            for c in out.get("creatives") or []:
+                if needed <= 0:
+                    break
+                headline = (c.get("headline") or "").strip()
+                if headline and headline.lower() in headline_seen:
+                    continue
+                if headline:
+                    headline_seen.add(headline.lower())
+                artifact_id = str(uuid.uuid4())
+                created = create_artifact(
+                    conn,
+                    artifact_id=artifact_id,
+                    task_id=task_id,
+                    type="creative",
+                    status="draft",
+                    tags={
+                        "funnelStage": stage,
+                        "persona": persona,
+                        "market": market,
+                        "language": language,
+                        "requiredSet": True,
+                        "source": "seed-required-set:generate",
+                    },
+                    content_json=c,
+                    content_markdown=None,
+                )
+                created_ids.append(created["id"])
+                needed -= 1
+
+        log_event(
+            conn,
+            event_id=str(uuid.uuid4()),
+            task_id=task_id,
+            name="seeded_required_creative_set",
+            props={"created": len(created_ids), "updated": len(updated_ids)},
+        )
+        conn.commit()
+
+    return jsonify({"taskId": task_id, "createdIds": created_ids, "updatedIds": updated_ids})
+
 @app.route('/api/tools/templates/generate', methods=['POST'])
 def templates_generate():
     payload = request.get_json(silent=True) or {}

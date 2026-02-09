@@ -50,8 +50,9 @@ function CreativeGenerator() {
     setLoading(true);
     setError(null);
     try {
+      const aiInputs = { ...inputs, count: 3 };
       const res = useOpenAI
-        ? await api.post('/api/ai/creative/generate', { inputs, model })
+        ? await api.post('/api/ai/creative/generate', { inputs: aiInputs, model })
         : await api.post('/api/tools/creative/generate', { inputs });
       setResult(res.data);
     } catch (err) {
@@ -111,7 +112,7 @@ function CreativeGenerator() {
     try {
       let created = 0;
       for (const item of plan) {
-        const reqInputs = { ...inputs, funnelStage: item.funnelStage, language: item.language };
+        const reqInputs = { ...inputs, funnelStage: item.funnelStage, language: item.language, count: item.n };
         const res = useOpenAI
           ? await api.post('/api/ai/creative/generate', { inputs: reqInputs, model })
           : await api.post('/api/tools/creative/generate', { inputs: reqInputs });
