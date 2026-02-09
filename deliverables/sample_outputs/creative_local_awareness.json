@@ -1,0 +1,58 @@
+{
+  "inputs": {
+    "persona": "GP",
+    "market": "Romania",
+    "funnelStage": "Awareness",
+    "language": "en"
+  },
+  "creatives": [
+    {
+      "id": "awareness-1",
+      "persona": "GP",
+      "market": "Romania",
+      "funnelStage": "Awareness",
+      "language": "en",
+      "headline": "You finish clinic at 5pm. Your work doesn't.",
+      "primaryText": "For GPs in Romania: reduce admin load without sacrificing note quality.",
+      "cta": "Learn how it works",
+      "tags": [
+        "awareness",
+        "gp",
+        "romania"
+      ],
+      "format": "Square (1080×1080) - static"
+    },
+    {
+      "id": "awareness-2",
+      "persona": "GP",
+      "market": "Romania",
+      "funnelStage": "Awareness",
+      "language": "en",
+      "headline": "The computer is stealing the consult.",
+      "primaryText": "For GPs in Romania: reduce admin load without sacrificing note quality.",
+      "cta": "Learn how it works",
+      "tags": [
+        "awareness",
+        "gp",
+        "romania"
+      ],
+      "format": "Square (1080×1080) - static"
+    },
+    {
+      "id": "awareness-3",
+      "persona": "GP",
+      "market": "Romania",
+      "funnelStage": "Awareness",
+      "language": "en",
+      "headline": "Charting shouldn't be your second job.",
+      "primaryText": "For GPs in Romania: reduce admin load without sacrificing note quality.",
+      "cta": "Learn how it works",
+      "tags": [
+        "awareness",
+        "gp",
+        "romania"
+      ],
+      "format": "Square (1080×1080) - static"
+    }
+  ]
+}

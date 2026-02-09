@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { api } from '../../api';
+import WaitlistForm from '../../components/WaitlistForm';
 
 const DEFAULTS = {
   patientsPerDay: 18,
@@ -15,6 +16,8 @@ function AdminAudit() {
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState(null);
   const [error, setError] = useState(null);
+  const [templatePack, setTemplatePack] = useState(null);
+  const [templateMessage, setTemplateMessage] = useState(null);
 
   const fields = useMemo(
     () => [
@@ -32,11 +35,30 @@ function AdminAudit() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setTemplatePack(null);
+    setTemplateMessage(null);
     try {
       const res = await api.post('/api/tools/admin-audit/report', { responses });
       setReport(res.data);
     } catch (err) {
       setError(err?.message || 'Request failed');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function generateTemplates() {
+    setLoading(true);
+    setTemplateMessage(null);
+    try {
+      const res = await api.post('/api/tools/templates/save', {
+        taskId: 'paid-media-a',
+        inputs: { specialty: 'General Practice', locale: 'en', tone: 'concise' },
+      });
+      setTemplatePack(res.data.contentJson);
+      setTemplateMessage('Saved template pack as an artifact (draft). See it under this task’s Assets tab.');
+    } catch (err) {
+      setTemplateMessage(err?.response?.data?.error || err?.message || 'Template generation failed');
     } finally {
       setLoading(false);
     }
@@ -114,9 +136,28 @@ function AdminAudit() {
               <div className="cta-box">
                 <h3>{report.cta.headline}</h3>
                 <p>{report.cta.body}</p>
-                <button className="secondary-button" onClick={() => alert('Stub: connect this to Heidi signup / demo flow')}>
-                  {report.cta.primaryAction}
+                <WaitlistForm source="admin-audit" defaultRole="Clinician" />
+              </div>
+
+              <div className="cta-box">
+                <h3>Next step: starter templates</h3>
+                <p>Generate 3 reusable templates (routine follow-up, acute visit, referral) as an exportable pack.</p>
+                <button className="secondary-button" style={{ marginTop: 0 }} onClick={generateTemplates} disabled={loading}>
+                  {loading ? 'Generating…' : 'Generate template pack'}
                 </button>
+                {templateMessage && <div className="success-text">{templateMessage}</div>}
+                {templatePack && (
+                  <div className="data-section" style={{ marginTop: '1rem' }}>
+                    <h3>Preview</h3>
+                    <ul>
+                      {templatePack.templates.map(t => (
+                        <li key={t.id}>
+                          <strong>{t.title}</strong> ({t.format})
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -127,4 +168,3 @@ function AdminAudit() {
 }
 
 export default AdminAudit;
-

@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import WaitlistForm from '../../components/WaitlistForm';
 
 const TEMPLATES = [
   {
@@ -132,9 +133,7 @@ function NoteTemplatesLibrary() {
           <div className="cta-box">
             <h3>Want these generated automatically?</h3>
             <p>Heidi can draft notes in your preferred format and tone, then learn your template style over time.</p>
-            <button className="primary-button" onClick={() => alert('Stub: connect this to Heidi signup')}>
-              Try Heidi templates →
-            </button>
+            <WaitlistForm source="note-templates" defaultRole="Clinician" />
           </div>
         </div>
       </div>
@@ -143,4 +142,3 @@ function NoteTemplatesLibrary() {
 }
 
 export default NoteTemplatesLibrary;
-

@@ -1,0 +1,10 @@
+{
+  "model": "openai/gpt-4o-mini",
+  "inputs": {
+    "page": "Templates upgrade landing",
+    "goal": "Demo bookings",
+    "audience": "Practice managers",
+    "objection": "I might break what already works"
+  }
+}
+

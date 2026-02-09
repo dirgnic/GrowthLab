@@ -1,0 +1,53 @@
+{
+  "id": "incentive-design",
+  "title": "Incentive Design Under Adversarial Conditions (Kinetic)",
+  "category": "Product & Operations",
+  "description": "Design a system that makes information sharing a selfish, rational decision for competing physiotherapy clinics — even when they are competitors.",
+  "requirements": [
+    "A clickable or runnable prototype showing opt-in/opt-out behavior",
+    "What information is shared and when",
+    "How incentives are created and reinforced",
+    "Explanation of how this scales from 19% → 80%"
+  ],
+  "solution": {
+    "type": "product-system",
+    "data": {
+      "problem": "Only 19% of PT clinics want to share patient history, despite 71% wanting to receive it",
+      "solution": "Reputation + Revenue Sharing System",
+      "demoRoute": "/tools/kinetic-incentives",
+      "mechanics": [
+        {
+          "mechanism": "Reputation Score (Public Profile)",
+          "logic": "Clinics that share treatment notes earn visible credibility (like Airbnb reviews). Specialists/experienced practitioners are marked as 'trusted referral partners.'",
+          "incentive": "New patient referrals flow to high-reputation clinics"
+        },
+        {
+          "mechanism": "Revenue Share on Successful Referrals",
+          "logic": "If a clinic refers a patient and that patient books at the receiving clinic, the referring clinic gets 5-10% of that first visit revenue",
+          "incentive": "Sharing = direct financial upside"
+        },
+        {
+          "mechanism": "Safety Guarantees",
+          "logic": "Notes are read-only and timestamped. Clinics see exactly when and by whom their data was accessed. Audit trail prevents liability concerns.",
+          "incentive": "Removes fear of misuse or judgment"
+        },
+        {
+          "mechanism": "Competitive Analysis",
+          "logic": "Clinics see: 'Clinics in your area with shared profiles get 40% more referrals.' Social proof drives adoption.",
+          "incentive": "FOMO drives adoption"
+        }
+      ],
+      "prototypePath": [
+        "1. Clinic signs up, sees opt-in screen",
+        "2. Shows 'Sharing benefits' (reputation, revenue, referrals)",
+        "3. Shows 'Safety controls' (read-only, audit trail, what can be hidden)",
+        "4. After opt-in: dashboard shows reputation score, referrals received, revenue earned"
+      ],
+      "scalingPlan": {
+        "phase1": "19% → 40% (reputation system launch, early adopter incentives)",
+        "phase2": "40% → 60% (revenue share + case studies of successful clinics)",
+        "phase3": "60% → 80% (network effects: clinics see other clinics thriving)"
+      }
+    }
+  }
+}

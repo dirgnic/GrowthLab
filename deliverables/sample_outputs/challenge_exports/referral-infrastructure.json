@@ -1,0 +1,61 @@
+{
+  "id": "referral-infrastructure",
+  "title": "Referral Infrastructure That Actually Converts (Pathway)",
+  "category": "Product & UX",
+  "description": "Redesign the referral system to materially increase booked rate and make the experience feel like continuity of care, not a cold handoff.",
+  "requirements": [
+    "Working end-to-end prototype covering referring practitioner, patient, and receiving practitioner flows",
+    "Walkthrough showing where drop-off is reduced",
+    "How context is preserved and loop is closed",
+    "Rationale for why this changes behavior, not just tracking"
+  ],
+  "solution": {
+    "type": "product-redesign",
+    "data": {
+      "currentState": {
+        "bookedRate": "41%",
+        "issues": [
+          "Patient feels abandoned",
+          "Context lost between practitioners",
+          "No automated follow-up",
+          "Silent failures"
+        ]
+      },
+      "demoRoute": "/tools/pathway-referrals",
+      "newFlow": [
+        {
+          "step": "Referral Creation",
+          "actor": "Referring Practitioner",
+          "action": "Creates referral with specific context: 'Needs mobility assessment for knee', includes patient goals, clinical notes (read-only)"
+        },
+        {
+          "step": "Patient Notification",
+          "actor": "System",
+          "action": "SMS + Email: 'Your physio referred you to XYZ for continued care. 1-tap to book with them.'",
+          "frictionReduction": "1-tap booking instead of searching/calling"
+        },
+        {
+          "step": "Booking",
+          "actor": "Patient",
+          "action": "1-tap confirmation; appointment confirmed instantly"
+        },
+        {
+          "step": "Receiving Practitioner Prep",
+          "actor": "System",
+          "action": "Receiving practitioner sees referral context 24h before appointment; can review history",
+          "continuity": "No need to re-assess basics"
+        },
+        {
+          "step": "Post-Visit Loop",
+          "actor": "Receiving Practitioner",
+          "action": "Sends brief update to referring practitioner (with patient consent); closes the loop",
+          "trust": "Transparency + collaboration signal"
+        }
+      ],
+      "expectedImpact": {
+        "bookedRateTarget": "65-70%",
+        "rationale": "1-tap reduces friction by 80%; context preservation + loop closure increases perceived continuity"
+      }
+    }
+  }
+}

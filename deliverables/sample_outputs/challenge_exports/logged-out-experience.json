@@ -1,0 +1,35 @@
+{
+  "id": "logged-out-experience",
+  "title": "Logged-Out Web Experience That Earns Traffic",
+  "category": "Organic Growth",
+  "description": "Design and build a logged-out web experience that ranks or spreads organically, is not a blog, and naturally funnels users toward Heidi.",
+  "requirements": [
+    "Identify an adjacent problem clinicians have (not 'AI scribing' directly)",
+    "Design a logged-out experience that solves part of that problem",
+    "Show how it would attract traffic",
+    "A live page, prototype, or clickable demo",
+    "A simple conversion path from experience → signup"
+  ],
+  "solution": {
+    "type": "web-tool",
+    "data": {
+      "tool": "Medical Note Templates Library",
+      "adjacentProblem": "Clinicians struggle with note consistency and compliance across different specialties",
+      "toolFunction": "Free library of evidence-based, specialty-specific note templates (GP, psychiatrist, physiotherapist, etc.)",
+      "discoveryMechanism": {
+        "search": "Clinicians search: 'SOAP note template', 'psychiatry note format', 'PT documentation'",
+        "social": "Shared in physician groups, residency programs, allied health communities"
+      },
+      "conversionPath": [
+        "User finds template via Google search",
+        "User browses 5-10 related templates",
+        "CTA: 'Auto-generate these templates with AI' → Heidi signup",
+        "Permission gates: free templates, premium = AI-assisted generation"
+      ],
+      "demoRoute": "/tools/note-templates",
+      "expectedTraffic": "25,000-40,000 monthly visits from organic search",
+      "conversionRate": "5-8% → 1,250-3,200 signups/month",
+      "compoundingEffect": "Backlinks from medical education sites, template sharing in clinical forums"
+    }
+  }
+}

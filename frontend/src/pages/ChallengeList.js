@@ -33,12 +33,14 @@ function ChallengeList() {
 
   return (
     <div className="container">
-      <h1>All Heidi Challenges</h1>
-      <p style={{ color: '#666' }}>Explore solutions across all {challenges.length} challenges</p>
+      <h1 style={{ textAlign: 'center' }}>All Heidi Challenges</h1>
+      <p style={{ color: 'var(--muted)', textAlign: 'center' }}>
+        Explore solutions across all {challenges.length} challenges
+      </p>
 
       {Object.entries(byCategory).map(([category, items]) => (
         <div key={category} style={{ marginBottom: '3rem' }}>
-          <h2 style={{ color: '#2563eb', borderBottom: '2px solid #2563eb', paddingBottom: '0.5rem' }}>
+          <h2 style={{ color: 'var(--brand-700)', borderBottom: '2px solid var(--brand-600)', paddingBottom: '0.5rem' }}>
             {category}
           </h2>
           <div className="challenges-grid">

@@ -1,4 +1,4 @@
-# Heidi Challenge Portfolio
+# Heidi Launchpad
 
 A full-stack web application showcasing solutions to all 15 Heidi growth, product, and operations challenges.
 
@@ -51,6 +51,24 @@ Run both servers:
 ```bash
 npm start
 ```
+
+## Enable AI pipelines (OpenRouter/OpenAI) (optional)
+
+Never paste API keys into the frontend (browser). Keep keys **backend-only**.
+
+1) Create `backend/.env` from `backend/.env.example` and set either:
+
+- **OpenRouter (recommended):** `AI_PROVIDER=openrouter` and `OPENROUTER_API_KEY=...`
+- **OpenAI:** `AI_PROVIDER=openai` and `OPENAI_API_KEY=...`
+
+2) Restart `npm start`.
+
+3) In the UI, go to `Tools → AI Creative Generator` (or `Tools → Voicemail Triage`) and toggle “Use AI pipeline”.
+
+Notes:
+
+- Backend port defaults to `8000`, but `npm start` will auto-pick `8000–8049` if `8000` is already in use.
+- Backend log file: `backend/.dev-backend.log`
 
 ### Backend Setup
 
@@ -120,9 +138,19 @@ Each challenge includes:
 - Browse all 15 challenges organized by category
 - Detailed view for each challenge with full solution
 - Logged-out tool demos for selected challenges (see `/tools`)
+- Per-task “Solution Hub” tabs: Plan, Prototype, Assets (artifacts), Metrics (events), Export
 - Responsive design
 - Data-rich solution presentations with tables, lists, and structured content
 - RESTful API backend
+- Submission pack in `deliverables/` (checklist, runbook, sample inputs/outputs)
+
+## Platform Primitives (shared building blocks)
+
+- **Artifacts:** save notes/creative/exports per task via `POST /api/artifacts`, query via `GET /api/artifacts?task_id=...`
+- **Events:** lightweight analytics via `POST /api/events`, summary via `GET /api/events/summary?task_id=...`
+- **Waitlist:** early user capture via `POST /api/waitlist`
+- **Exports:** `GET /api/export/:taskId?format=markdown|json`
+- **Storage:** SQLite file at `backend/app.db` (demo-friendly; can be swapped later)
 
 ## Next Steps
 

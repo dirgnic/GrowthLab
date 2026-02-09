@@ -292,6 +292,7 @@ CHALLENGES = [
                 "targetFunction": "CRO (Conversion Rate Optimization) & A/B Testing",
                 "problem": "Growth team currently: manually analyzes user feedback, designs experiments slowly, writes test copy variationsmanually",
                 "solution": "AI Agent that: reads session recordings & feedback → suggests tests → generates copy → tracks results → recommends next tests",
+                "demoRoute": "/tools/growth-ai-studio",
                 "beforeAfter": {
                     "before": {
                         "timeToTestHypothesis": "5-7 days",
@@ -372,6 +373,7 @@ CHALLENGES = [
             "type": "lifecycle-system",
             "data": {
                 "focusMetrics": ["Free → Paid Conversion", "Time to First Value", "Activation"],
+                "demoRoute": "/tools/lifecycle-simulator",
                 "segments": [
                     {
                         "name": "Power User",
@@ -426,6 +428,7 @@ CHALLENGES = [
             "data": {
                 "problem": "Only 19% of PT clinics want to share patient history, despite 71% wanting to receive it",
                 "solution": "Reputation + Revenue Sharing System",
+                "demoRoute": "/tools/kinetic-incentives",
                 "mechanics": [
                     {
                         "mechanism": "Reputation Score (Public Profile)",
@@ -480,6 +483,7 @@ CHALLENGES = [
                     "bookedRate": "41%",
                     "issues": ["Patient feels abandoned", "Context lost between practitioners", "No automated follow-up", "Silent failures"]
                 },
+                "demoRoute": "/tools/pathway-referrals",
                 "newFlow": [
                     {
                         "step": "Referral Creation",
@@ -532,6 +536,7 @@ CHALLENGES = [
             "type": "product-architecture",
             "data": {
                 "architecture": "Structured, Role-Based Summaries",
+                "demoRoute": "/tools/capsule-summary",
                 "dataModel": {
                     "includedInSummary": [
                         {
@@ -593,6 +598,7 @@ CHALLENGES = [
             "data": {
                 "currentState": "Manual onboarding takes weeks; requires back-and-forth with Heidi team",
                 "newState": "Self-serve questionnaire; 80% of clinics can configure independently in 30 minutes",
+                "demoRoute": "/tools/calls-onboarding",
                 "onboardingFlow": [
                     {
                         "step": 1,
@@ -646,6 +652,7 @@ CHALLENGES = [
             "data": {
                 "currentProblem": "Dozens of voicemails every morning; no clear sense of urgency; staff behind before day starts",
                 "newSystem": "AI-powered voicemail triage with auto-summarization and prioritization",
+                "demoRoute": "/tools/voicemail-triage",
                 "pipeline": [
                     {
                         "step": "Recording Capture",

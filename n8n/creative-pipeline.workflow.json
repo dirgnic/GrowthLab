@@ -1,0 +1,68 @@
+{
+  "name": "Heidi Launchpad - Creative Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "heidi-launchpad/creative",
+        "httpMethod": "POST",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "Webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$json.apiBaseUrl + '/api/webhooks/n8n/creative'}}",
+        "sendBody": true,
+        "bodyParametersUi": {
+          "parameter": [
+            {
+              "name": "inputs",
+              "value": "={{$json.inputs}}"
+            },
+            {
+              "name": "model",
+              "value": "={{$json.model || 'gpt-4o-mini'}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "HTTP Request",
+      "name": "Call Launchpad",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        470,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Call Launchpad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "meta": {
+    "notes": "POST to this n8n webhook with { apiBaseUrl, inputs:{persona,market,funnelStage,language}, model } and it will call Launchpad's /api/webhooks/n8n/creative endpoint to generate + persist creatives."
+  }
+}
+

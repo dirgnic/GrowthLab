@@ -1,0 +1,65 @@
+{
+  "id": "organic-flywheel",
+  "title": "Build One Organic Flywheel",
+  "category": "Organic Growth",
+  "description": "Build and demonstrate one organic growth asset Heidi is not currently doing that could plausibly drive 100,000 incremental signups over 12 months. You must show something real.",
+  "requirements": [
+    "A live page, prototype, or clickable demo of the asset",
+    "A concrete discovery path (search, social, communities, referrals)",
+    "A clear conversion mechanism from asset → Heidi signup",
+    "A simple growth model explaining how this compounds"
+  ],
+  "solution": {
+    "type": "organic-asset",
+    "data": {
+      "asset": "Clinical Workflow Optimization Checklist",
+      "premise": "Clinicians search for 'how to reduce admin burden' and 'faster patient notes' but don't yet know AI scribe solutions exist",
+      "discoveryPath": [
+        {
+          "channel": "SEO",
+          "keyword": "clinical admin burden, medical scribe, reduce charting time, EHR burden",
+          "estimatedMonthlySearches": 45000
+        },
+        {
+          "channel": "Reddit/Communities",
+          "platforms": "r/medicine, r/Residency, r/Nursing, KevinMD forums",
+          "strategy": "Organic sharing by clinicians facing the problem"
+        },
+        {
+          "channel": "LinkedIn",
+          "strategy": "Shared by healthcare admins and clinic leaders optimizing workflows"
+        }
+      ],
+      "asset_description": "Interactive checklist that helps clinics audit where they waste time on admin. Users answer ~15 questions, get personalized report on 'admin waste' in hours/week/cost",
+      "demoRoute": "/tools/admin-audit",
+      "conversionMechanism": {
+        "step1": "User completes checklist, sees report",
+        "step2": "Report shows 'typical clinic wastes 200 hours/year' → comparison to competitors",
+        "step3": "CTA: 'See how Heidi compares' → signup to see Heidi pricing/impact",
+        "step4": "Conversion rate assumption: 8-12% of checklist users sign up"
+      },
+      "growthModel": {
+        "month1": {
+          "visits": 5000,
+          "signups": 400,
+          "assumption": "SEO + early shares"
+        },
+        "month3": {
+          "visits": 15000,
+          "signups": 1500,
+          "assumption": "Organic ranking improves"
+        },
+        "month6": {
+          "visits": 35000,
+          "signups": 3500,
+          "assumption": "Becomes reference in Reddit/communities"
+        },
+        "month12": {
+          "visits": 80000,
+          "signups": 7200,
+          "assumption": "Branded searches + consistent sharing"
+        }
+      }
+    }
+  }
+}

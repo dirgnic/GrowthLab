@@ -1,0 +1,107 @@
+{
+  "id": "paid-media-b",
+  "title": "Paid Media Task B — Creative Systems",
+  "category": "Growth & Paid Media",
+  "description": "Build and demonstrate a working, end-to-end AI-powered creative system for paid media. This is not a concept. You must show it running.",
+  "requirements": [
+    "A functioning creative pipeline using tools like n8n, Claude Code, Sora / Runway / image tools",
+    "Inputs: persona, market, funnel stage; Outputs: ready-to-run ad creatives",
+    "At least: 3 awareness creatives, 2 mid-funnel creatives, 1 conversion-focused creative, 1 non-English creative",
+    "A lightweight system for managing, tagging, and iterating creatives",
+    "A system diagram showing where AI ends and human judgment begins"
+  ],
+  "solution": {
+    "type": "creative-pipeline",
+    "data": {
+      "pipelineStages": [
+        {
+          "stage": "1. Input Specification",
+          "description": "User inputs: persona, pain point, market, funnel stage"
+        },
+        {
+          "stage": "2. AI Generation (Claude)",
+          "description": "Generate 3-5 creative concepts + copy variations"
+        },
+        {
+          "stage": "3. Human Review",
+          "description": "Creative lead reviews for brand fit, compliance"
+        },
+        {
+          "stage": "4. Asset Production",
+          "description": "Generate visuals (DALL-E / Runway), finalize copy"
+        },
+        {
+          "stage": "5. Testing & Iteration",
+          "description": "A/B test, measure performance, iterate top performers"
+        }
+      ],
+      "creatives": [
+        {
+          "type": "Awareness",
+          "title": "The Invisible Work",
+          "description": "Highlight after-hours admin burden; emotional hook before product",
+          "copy": "You finish clinic at 5pm. Your work doesn't.",
+          "platform": "Meta"
+        },
+        {
+          "type": "Awareness",
+          "title": "Clinician Testimonial",
+          "description": "Real GP talking about time saved",
+          "copy": "Heidi gave me back 2 hours every day",
+          "platform": "LinkedIn"
+        },
+        {
+          "type": "Awareness",
+          "title": "Problem Agitation",
+          "description": "Show the chaos (unstructured notes, clicking)",
+          "copy": "Your EHR wasn't designed for you. Heidi was.",
+          "platform": "Google Display"
+        },
+        {
+          "type": "Awareness (ES)",
+          "title": "Menos pantalla. Más paciente.",
+          "description": "Spanish creative for expansion markets; same insight, local language",
+          "copy": "Tu consulta termina. El papeleo no. Heidi te devuelve el tiempo.",
+          "platform": "Meta (ES)"
+        },
+        {
+          "type": "Mid-Funnel",
+          "title": "ROI Calculator",
+          "description": "Interactive tool showing time/cost savings",
+          "copy": "See how much time (and money) Heidi saves your clinic",
+          "platform": "Landing Page"
+        },
+        {
+          "type": "Mid-Funnel",
+          "title": "Comparison Table",
+          "description": "Heidi vs traditional transcription + manual entry",
+          "copy": "The AI that understands your specialty",
+          "platform": "Meta Retargeting"
+        },
+        {
+          "type": "Conversion",
+          "title": "Trial CTA",
+          "description": "Free 14-day trial, no credit card, specific use case",
+          "copy": "Try Heidi free for 14 days on your next patient",
+          "platform": "All Channels"
+        }
+      ],
+      "governance": {
+        "aiGenerates": [
+          "Concepts",
+          "Copy variations",
+          "Visual briefs",
+          "Iteration suggestions"
+        ],
+        "humanDecides": [
+          "Brand safety",
+          "Compliance (HIPAA/GDPR)",
+          "Messaging priority",
+          "Launch approval"
+        ],
+        "frequencyPerWeek": "3-5 new creative sets tested"
+      },
+      "demoRoute": "/tools/creative-generator"
+    }
+  }
+}

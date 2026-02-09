@@ -1,11 +1,25 @@
+:root {
+  --bg: #ecfdf5;
+  --surface: #f0fdf4;
+  --surface-2: #dcfce7;
+  --text: #1f2937;
+  --muted: #4b5563;
+  --border: rgba(17, 24, 39, 0.12);
+
+  --brand-700: #14532d;
+  --brand-600: #15803d;
+  --brand-500: #16a34a;
+  --brand-200: #86efac;
+  --brand-100: #dcfce7;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f5f5f5;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .App {
@@ -13,7 +27,7 @@ body {
 }
 
 .navbar {
-  background: white;
+  background: var(--surface-2);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem 2rem;
   display: flex;
@@ -24,7 +38,7 @@ body {
 .nav-brand {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #2563eb;
+  color: var(--brand-700);
   text-decoration: none;
 }
 
@@ -34,14 +48,14 @@ body {
 }
 
 .nav-links a {
-  color: #666;
+  color: var(--muted);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 .nav-links a:hover {
-  color: #2563eb;
+  color: var(--brand-700);
 }
 
 .container {
@@ -51,23 +65,24 @@ body {
 }
 
 .hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-  margin-bottom: 3rem;
+  background: transparent;
+  color: var(--text);
+  padding: 1.5rem 0 0.5rem 0;
+  text-align: left;
+  margin-bottom: 1.5rem;
 }
 
 .hero h1 {
   margin: 0;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--brand-700);
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin: 0;
-  opacity: 0.9;
+  color: var(--muted);
 }
 
 .challenges-grid {
@@ -78,7 +93,7 @@ body {
 }
 
 .challenge-card {
-  background: white;
+  background: var(--surface);
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -96,14 +111,14 @@ body {
 
 .challenge-card h3 {
   margin: 0 0 0.5rem 0;
-  color: #2563eb;
+  color: var(--brand-700);
 }
 
 .challenge-card .category {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--muted);
   margin-bottom: 0.5rem;
-  background: #e3f2fd;
+  background: var(--brand-100);
   display: inline-block;
   padding: 0.25rem 0.75rem;
   border-radius: 4px;
@@ -111,27 +126,27 @@ body {
 
 .challenge-card p {
   margin: 0;
-  color: #666;
+  color: var(--muted);
   font-size: 0.95rem;
   flex-grow: 1;
 }
 
 .challenge-detail {
-  background: white;
+  background: var(--surface);
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .challenge-detail h1 {
-  color: #2563eb;
+  color: var(--brand-700);
   margin-top: 0;
 }
 
 .challenge-detail .category {
   font-size: 0.9rem;
-  color: #666;
-  background: #e3f2fd;
+  color: var(--muted);
+  background: var(--brand-100);
   display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -146,15 +161,16 @@ body {
 }
 
 .requirements {
-  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.55);
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
+  border: 1px solid var(--border);
 }
 
 .requirements h3 {
   margin-top: 0;
-  color: #2563eb;
+  color: var(--brand-700);
 }
 
 .requirements ul {
@@ -168,16 +184,17 @@ body {
 }
 
 .solution {
-  background: #f0f9ff;
+  background: rgba(255, 255, 255, 0.65);
   padding: 2rem;
-  border-left: 4px solid #2563eb;
+  border-left: 4px solid var(--brand-600);
   border-radius: 8px;
   margin-top: 2rem;
+  border: 1px solid var(--border);
 }
 
 .solution h2 {
   margin-top: 0;
-  color: #2563eb;
+  color: var(--brand-700);
 }
 
 .solution-content {
@@ -189,7 +206,7 @@ body {
 }
 
 .data-section h3 {
-  color: #1e40af;
+  color: var(--brand-700);
   margin-bottom: 0.75rem;
 }
 
@@ -235,7 +252,7 @@ table tr:hover {
 .back-link {
   display: inline-block;
   margin-bottom: 1.5rem;
-  color: #2563eb;
+  color: var(--brand-700);
   text-decoration: none;
   font-weight: 500;
 }
@@ -257,7 +274,7 @@ table tr:hover {
 }
 
 .projects-header {
-  color: #2563eb;
+  color: var(--brand-700);
   margin-top: 3rem;
   margin-bottom: 1.5rem;
 }
@@ -279,7 +296,7 @@ code {
   display: inline-block;
   margin-top: 0.5rem;
   padding: 0.75rem 1rem;
-  background: #2563eb;
+  background: var(--brand-600);
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -307,7 +324,7 @@ code {
 }
 
 .tool-card {
-  background: white;
+  background: var(--surface);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -315,7 +332,7 @@ code {
 
 .tool-card h2 {
   margin-top: 0;
-  color: #1e40af;
+  color: var(--brand-700);
 }
 
 .form-grid {
@@ -355,13 +372,13 @@ code {
 }
 
 .primary-button {
-  background: #2563eb;
+  background: var(--brand-600);
   color: white;
 }
 
 .secondary-button {
-  background: #e0e7ff;
-  color: #1e40af;
+  background: var(--brand-100);
+  color: var(--brand-700);
 }
 
 .primary-button:disabled {
@@ -389,7 +406,7 @@ code {
 }
 
 .metric {
-  background: #f8fafc;
+  background: rgba(255, 255, 255, 0.65);
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   padding: 0.9rem;
@@ -411,8 +428,8 @@ code {
   margin-top: 1.5rem;
   padding: 1.25rem;
   border-radius: 12px;
-  background: #f0f9ff;
-  border: 1px solid rgba(37, 99, 235, 0.15);
+  background: rgba(220, 252, 231, 0.65);
+  border: 1px solid rgba(21, 128, 61, 0.18);
 }
 
 .muted {
@@ -514,6 +531,39 @@ code {
   gap: 0.75rem;
   align-items: flex-start;
   justify-content: space-between;
+}
+
+.waitlist-form {
+  margin-top: 0.75rem;
+}
+
+.success-text {
+  margin-top: 0.75rem;
+  color: #166534;
+  font-weight: 700;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.tab {
+  border: 1px solid #e5e7eb;
+  background: white;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #374151;
+}
+
+.tab.active {
+  border-color: rgba(37, 99, 235, 0.65);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  color: #1e40af;
 }
 
 @media (max-width: 900px) {

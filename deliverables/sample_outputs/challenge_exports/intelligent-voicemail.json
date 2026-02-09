@@ -1,0 +1,51 @@
+{
+  "id": "intelligent-voicemail",
+  "title": "Intelligent Voicemail System (Harbour to Sunset GP)",
+  "category": "Product & Operations",
+  "description": "Design a system that transforms voicemail from a chaos source into a prioritized, actionable queue for admin staff.",
+  "requirements": [
+    "Working prototype showing voicemail processing pipeline",
+    "How system prioritizes and summarizes messages",
+    "How admin staff act on voicemail efficiently",
+    "Expected impact on staff productivity and patient response time"
+  ],
+  "solution": {
+    "type": "product-system",
+    "data": {
+      "currentProblem": "Dozens of voicemails every morning; no clear sense of urgency; staff behind before day starts",
+      "newSystem": "AI-powered voicemail triage with auto-summarization and prioritization",
+      "demoRoute": "/tools/voicemail-triage",
+      "pipeline": [
+        {
+          "step": "Recording Capture",
+          "action": "Voicemail captured and transcribed in real-time"
+        },
+        {
+          "step": "AI Classification",
+          "classifies": [
+            "Priority: Urgent (acute symptoms, follow-up critical), High (appointment/prescription), Normal (general inquiry)",
+            "Type: New patient, Existing patient, Prescription refill, Appointment change, Lab result follow-up, Referral",
+            "Practitioner: Routes to relevant doctor/specialty"
+          ]
+        },
+        {
+          "step": "Auto-Summary & CTA",
+          "generates": "1-sentence summary + suggested next action (e.g., 'Call back', 'Schedule appointment', 'Send lab result')"
+        },
+        {
+          "step": "Dashboard Queue",
+          "displays": "Sorted by priority; admin staff work top-to-bottom; one click to call patient back"
+        },
+        {
+          "step": "Closure Loop",
+          "tracks": "When admin calls patient back, marks voicemail as resolved; logs action for compliance"
+        }
+      ],
+      "impact": {
+        "timePerVoicemail": "Before: 2-3 min to listen + understand; After: 10 seconds to read summary + click 'call back'",
+        "staffProductivity": "15x faster voicemail triage; staff can clear queue in 20 min instead of 2 hours",
+        "patientExperience": "Response time: 2-4 hours instead of next business day"
+      }
+    }
+  }
+}

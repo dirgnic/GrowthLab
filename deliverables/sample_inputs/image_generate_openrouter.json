@@ -1,0 +1,16 @@
+{
+  "model": "black-forest-labs/flux.2-flex",
+  "inputs": {
+    "creative": {
+      "headline": "Charting shouldn’t be your second job.",
+      "primaryText": "Reclaim after-hours time without sacrificing note quality.",
+      "cta": "Run the audit",
+      "funnelStage": "Awareness",
+      "market": "Romania"
+    },
+    "modalities": [
+      "image"
+    ]
+  }
+}
+

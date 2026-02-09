@@ -1,0 +1,7 @@
+{
+  "model": "openai/gpt-4o-mini",
+  "inputs": {
+    "transcript": "Hi, I'm having chest pain and shortness of breath. I don't know what to do. Please call me back urgently."
+  }
+}
+

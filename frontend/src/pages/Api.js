@@ -5,10 +5,12 @@ function Api() {
   const [health, setHealth] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
 
   async function checkHealth() {
     setLoading(true);
     setError(null);
+    setMessage(null);
     try {
       const res = await api.get('/api/health');
       setHealth(res.data);
@@ -23,9 +25,9 @@ function Api() {
   async function copy(text) {
     try {
       await navigator.clipboard.writeText(text);
-      alert('Copied to clipboard');
+      setMessage('Copied to clipboard');
     } catch {
-      alert('Copy failed (clipboard permission).');
+      setMessage('Copy failed (clipboard permission).');
     }
   }
 
@@ -33,8 +35,22 @@ function Api() {
     { method: 'GET', path: '/api/health', desc: 'Health check' },
     { method: 'GET', path: '/api/challenges', desc: 'List all challenges' },
     { method: 'GET', path: '/api/challenges/:id', desc: 'Challenge detail (e.g. paid-media-a)' },
+    { method: 'GET', path: '/api/artifacts?task_id=:id', desc: 'List artifacts for a task' },
+    { method: 'POST', path: '/api/artifacts', desc: 'Create artifact (notes, creatives, exports)' },
+    { method: 'PATCH', path: '/api/artifacts/:artifactId', desc: 'Update artifact status/tags/content' },
+    { method: 'POST', path: '/api/events', desc: 'Log analytics event' },
+    { method: 'GET', path: '/api/events/summary?task_id=:id', desc: 'Event counts + recent for a task' },
+    { method: 'POST', path: '/api/waitlist', desc: 'Capture early users' },
+    { method: 'GET', path: '/api/export/:id?format=markdown', desc: 'Export task + artifacts' },
+    { method: 'POST', path: '/api/simulate/:id', desc: 'Run/save a simulation run' },
     { method: 'POST', path: '/api/tools/admin-audit/report', desc: 'Admin Burden Audit report' },
     { method: 'POST', path: '/api/tools/creative/generate', desc: 'Creative generator' },
+    { method: 'POST', path: '/api/tools/media/mock', desc: 'Local SVG ad mock generator' },
+    { method: 'GET', path: '/api/ai/status', desc: 'AI provider status + recommended models' },
+    { method: 'POST', path: '/api/ai/creative/generate', desc: 'AI creative pipeline (OpenRouter/OpenAI)' },
+    { method: 'POST', path: '/api/ai/voicemail/triage', desc: 'AI voicemail triage pipeline' },
+    { method: 'POST', path: '/api/ai/media/generate', desc: 'AI image generation (OpenRouter image models)' },
+    { method: 'POST', path: '/api/webhooks/n8n/creative', desc: 'n8n webhook: generate + persist creatives' },
   ];
 
   return (
@@ -51,6 +67,7 @@ function Api() {
               Copy
             </button>
           </div>
+          {message && <div className="success-text">{message}</div>}
           <p className="fine-print">
             Frontend reads this from <code>REACT_APP_API_BASE_URL</code> (defaults to <code>http://localhost:8000</code>).
           </p>
@@ -114,4 +131,3 @@ function Api() {
 }
 
 export default Api;
-

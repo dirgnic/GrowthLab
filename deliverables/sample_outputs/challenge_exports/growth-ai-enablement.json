@@ -1,0 +1,43 @@
+{
+  "id": "growth-ai-enablement",
+  "title": "10× a Growth Function with AI",
+  "category": "Growth & Product",
+  "description": "Pick one growth function at Heidi and build an AI-powered tool that makes it at least 10× faster or more effective.",
+  "requirements": [
+    "A working prototype (tool, agent, automation, or app)",
+    "A clear before/after comparison of the workflow",
+    "A short demo or walkthrough",
+    "An explanation of how this would be adopted by the team"
+  ],
+  "solution": {
+    "type": "ai-tool",
+    "data": {
+      "targetFunction": "CRO (Conversion Rate Optimization) & A/B Testing",
+      "problem": "Growth team currently: manually analyzes user feedback, designs experiments slowly, writes test copy variationsmanually",
+      "solution": "AI Agent that: reads session recordings & feedback → suggests tests → generates copy → tracks results → recommends next tests",
+      "demoRoute": "/tools/growth-ai-studio",
+      "beforeAfter": {
+        "before": {
+          "timeToTestHypothesis": "5-7 days",
+          "copyVariations": "2-3 per test",
+          "insightDiscovery": "Manual review of 50+ recordings",
+          "bottleneck": "Creative writing + hypothesis formation"
+        },
+        "after": {
+          "timeToTestHypothesis": "4-6 hours",
+          "copyVariations": "8-12 per test",
+          "insightDiscovery": "Automated clustering of user issues",
+          "improvement": "15-20x faster test velocity"
+        }
+      },
+      "workflow": [
+        "1. Agent ingests: session recordings, support tickets, user feedback",
+        "2. Agent identifies: conversion blockers, objection patterns, user behavior clusters",
+        "3. Agent suggests: 3-5 test hypotheses with copy variations",
+        "4. Human approves: selects hypothesis, reviews copy for brand fit",
+        "5. Agent runs: test setup, tracking, statistical significance monitoring",
+        "6. Agent reports: results + next recommended tests"
+      ]
+    }
+  }
+}

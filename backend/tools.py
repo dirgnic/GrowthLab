@@ -145,43 +145,110 @@ def generate_creatives(inputs: dict[str, Any]) -> dict[str, Any]:
     stage = (inputs.get("funnelStage") or "Awareness").strip()
     language = (inputs.get("language") or "en").strip().lower()
 
-    base_hooks = {
+    # Deterministic, clinician-first copy (no consumer "health companion" framing).
+    channels = {
+        "Awareness": ["Meta (Reels/Feed)", "YouTube Shorts", "LinkedIn"],
+        "Mid-Funnel": ["Meta Retargeting", "Google Display", "LinkedIn Retargeting"],
+        "Conversion": ["LinkedIn", "Google Search (limited)", "Meta Retargeting"],
+    }
+
+    base = {
         "Awareness": [
-            "You finish clinic at 5pm. Your work doesn't.",
-            "The computer is stealing the consult.",
-            "Charting shouldn't be your second job.",
+            {
+                "headline": "You finish clinic at 5pm. Your work doesn’t.",
+                "primaryText": "Most clinicians do a second shift at night: notes. Heidi helps you reclaim after-hours time without sacrificing quality.",
+                "creativeDirection": "Close-up: clinician closing laptop at 9:47pm; overlay text: “Unpaid shift.” Cut to calm consult moment.",
+            },
+            {
+                "headline": "The third person in the consult is the computer.",
+                "primaryText": "Patients notice when screens win. Heidi drafts notes so you can stay present and keep the conversation human.",
+                "creativeDirection": "Split-screen: eye contact vs typing. Simple animation of notes being drafted in the background.",
+            },
+            {
+                "headline": "Charting shouldn’t be your second job.",
+                "primaryText": "If documentation is stealing evenings, it’s not a willpower problem — it’s a workflow problem. Start with a 60-second audit.",
+                "creativeDirection": "Minimal UI: audit inputs → result card “hours/year” → CTA.",
+            },
         ],
         "Mid-Funnel": [
-            "See your time saved in 60 seconds.",
-            "Templates that learn your style.",
-            "Your notes, your voice — just faster.",
+            {
+                "headline": "How many hours does your clinic lose to admin?",
+                "primaryText": "Answer 6 questions. Get a personalized estimate + the top 3 fixes to cut admin load this month.",
+                "creativeDirection": "Calculator-style card + bold number result + checklist of 3 fixes.",
+            },
+            {
+                "headline": "Templates that don’t break what works.",
+                "primaryText": "Version history + easy edits mean you can iterate safely. Keep your clinic’s style while reducing manual typing.",
+                "creativeDirection": "Before/after template preview with “Restore version” interaction highlight.",
+            },
+            {
+                "headline": "Your notes are your fingerprint.",
+                "primaryText": "Heidi adapts to your structure and tone — then helps you produce consistent notes faster across the week.",
+                "creativeDirection": "Carousel: 3 specialties, same structure, consistent tone.",
+            },
         ],
         "Conversion": [
-            "Try it on your next patient — free for 14 days.",
-            "Book a 10-minute demo. Leave with a template.",
-            "Start today. Cancel anytime.",
+            {
+                "headline": "Pilot clinics: limited spots.",
+                "primaryText": "Try Heidi on real workflows. Bring one template and one use case — leave with a working setup in 15 minutes.",
+                "creativeDirection": "Clean offer card: “15-min setup” + calendar CTA + trust badges (no claims).",
+            },
+            {
+                "headline": "Book a 10-minute demo. Leave with a template.",
+                "primaryText": "No long sales call. We’ll set up a first template together and measure time-to-finish on your next notes.",
+                "creativeDirection": "Simple calendar UI + screenshot-style template builder preview.",
+            },
         ],
     }
 
-    ct_as = {
-        "Awareness": "Learn how it works",
-        "Mid-Funnel": "See the calculator",
-        "Conversion": "Start free trial",
-    }
-
-    hooks = base_hooks.get(stage, base_hooks["Awareness"])
-    cta = ct_as.get(stage, "Learn more")
+    ctas = {"Awareness": "Run the audit", "Mid-Funnel": "See your result", "Conversion": "Book a quick demo"}
 
     if language == "es":
-        hooks = [
-            "Tu consulta termina. El papeleo no.",
-            "Menos pantalla. Más paciente.",
-            "Tus notas, tu estilo — más rápido.",
-        ]
-        cta = "Ver cómo funciona"
+        base = {
+            "Awareness": [
+                {
+                    "headline": "Tu consulta termina. El papeleo no.",
+                    "primaryText": "Muchos clínicos hacen un segundo turno por la noche: notas. Heidi te devuelve tiempo sin perder calidad.",
+                    "creativeDirection": "Reloj nocturno + portátil + resultado en tarjeta (horas/año).",
+                },
+                {
+                    "headline": "Menos pantalla. Más paciente.",
+                    "primaryText": "Heidi redacta notas para que puedas mantener el contacto y la conversación humana.",
+                    "creativeDirection": "Split-screen: mirada al paciente vs tecleo; el borrador aparece solo.",
+                },
+                {
+                    "headline": "Documentar no debería robarte la noche.",
+                    "primaryText": "Empieza con una auditoría de 60 segundos y un plan de 3 pasos para reducir carga administrativa.",
+                    "creativeDirection": "UI del audit + lista de 3 pasos.",
+                },
+            ],
+            "Mid-Funnel": [
+                {
+                    "headline": "¿Cuántas horas pierdes en administración?",
+                    "primaryText": "6 preguntas. Resultado personalizado + prioridades claras para actuar esta semana.",
+                    "creativeDirection": "Tarjeta de resultado + checklist.",
+                },
+                {
+                    "headline": "Plantillas sin miedo a romper lo que funciona.",
+                    "primaryText": "Historial de versiones y ediciones seguras para mantener el estilo de tu clínica.",
+                    "creativeDirection": "Vista “restaurar versión” destacada.",
+                },
+            ],
+            "Conversion": [
+                {
+                    "headline": "Clínicas piloto: cupos limitados.",
+                    "primaryText": "Trae un caso y una plantilla. Sal con un flujo funcionando en 15 minutos.",
+                    "creativeDirection": "Oferta clara + CTA calendario.",
+                }
+            ],
+        }
+
+    items = base.get(stage, base["Awareness"])
+    cta = ctas.get(stage, "Learn more")
+    platform_choices = channels.get(stage, channels["Awareness"])
 
     creatives = []
-    for i, hook in enumerate(hooks[:3], start=1):
+    for i, item in enumerate(items[:3], start=1):
         creatives.append(
             {
                 "id": f"{stage.lower()}-{i}",
@@ -189,13 +256,94 @@ def generate_creatives(inputs: dict[str, Any]) -> dict[str, Any]:
                 "market": market,
                 "funnelStage": stage,
                 "language": language,
-                "headline": hook,
-                "primaryText": f"For {persona}s in {market}: reduce admin load without sacrificing note quality.",
+                "headline": item["headline"],
+                "primaryText": item["primaryText"],
                 "cta": cta,
                 "tags": [stage.lower(), persona.lower().replace(" ", "-"), market.lower().replace(" ", "-")],
                 "format": "Square (1080×1080) - static",
+                "platform": platform_choices[(i - 1) % len(platform_choices)],
+                "creativeDirection": item["creativeDirection"],
+                "complianceNotes": [
+                    "No patient data.",
+                    "No clinical claims (time saved depends on workflow).",
+                    "Avoid implying diagnosis/treatment.",
+                ],
             }
         )
 
     return {"inputs": {"persona": persona, "market": market, "funnelStage": stage, "language": language}, "creatives": creatives}
 
+
+def generate_template_pack(inputs: dict[str, Any]) -> dict[str, Any]:
+    """
+    Lightweight deliverable: generates 3 reusable note templates (text) as a pack.
+    Intended for the Admin Burden Audit "next step" to feel real and exportable.
+    """
+    specialty = (inputs.get("specialty") or "General Practice").strip()
+    tone = (inputs.get("tone") or "concise").strip()
+    locale = (inputs.get("locale") or "en").strip().lower()
+
+    def block(title: str, lines: list[str]) -> str:
+        body = "\n".join([f"- {l}" for l in lines])
+        return f"## {title}\n{body}\n"
+
+    templates = []
+
+    templates.append(
+        {
+            "id": "routine-follow-up",
+            "title": "Routine follow-up",
+            "format": "SOAP",
+            "markdown": block(
+                "Subjective",
+                ["Chief complaint:", "Interval history:", "Med adherence / side effects:", "ROS (relevant):"],
+            )
+            + block("Objective", ["Vitals:", "Exam (focused):", "Results reviewed:"])
+            + block("Assessment", ["Problem list (prioritized):", "Stability / change since last visit:"])
+            + block("Plan", ["Continue / adjust meds:", "Counseling:", "Tests ordered:", "Follow-up interval:", "Safety netting:"]),
+        }
+    )
+
+    templates.append(
+        {
+            "id": "acute-visit",
+            "title": "Acute visit",
+            "format": "SOAP + red flags",
+            "markdown": block(
+                "Subjective",
+                ["Chief complaint:", "Onset / duration:", "Severity / trajectory:", "Associated symptoms:", "Red flags (explicitly assessed):"],
+            )
+            + block("Objective", ["Vitals:", "Exam (focused):", "POC tests / imaging (if any):"])
+            + block("Assessment", ["Most likely diagnosis:", "Differentials considered:", "Reasoning (1-2 lines):"])
+            + block(
+                "Plan",
+                [
+                    "Treatment:",
+                    "Patient instructions:",
+                    "Return precautions (clear):",
+                    "Follow-up plan:",
+                    "Escalation if worse:",
+                ],
+            ),
+        }
+    )
+
+    templates.append(
+        {
+            "id": "referral-letter",
+            "title": "Referral / handoff",
+            "format": "SBAR",
+            "markdown": block("Situation", ["Reason for referral:", "Urgency:", "Key question you want answered:"])
+            + block("Background", ["Relevant history:", "Medications:", "Allergies:", "Pertinent negatives:"])
+            + block("Assessment", ["Working diagnosis / concerns:", "Key findings/results:"])
+            + block("Recommendation", ["Requested action:", "Suggested next steps:", "Preferred communication loop closure:"]),
+        }
+    )
+
+    return {
+        "specialty": specialty,
+        "tone": tone,
+        "locale": locale,
+        "templates": templates,
+        "notes": "Templates are generic starter formats. In production, these would be customized per clinic and versioned.",
+    }

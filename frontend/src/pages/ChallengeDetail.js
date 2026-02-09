@@ -1,28 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api } from '../api';
+import { api, API_BASE_URL } from '../api';
 
 function ChallengeDetail() {
   const { id } = useParams();
   const [challenge, setChallenge] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [tab, setTab] = useState('plan');
+  const [eventsSummary, setEventsSummary] = useState(null);
+  const [artifacts, setArtifacts] = useState([]);
+  const [noteDraft, setNoteDraft] = useState('');
+  const [savingNote, setSavingNote] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+    setError(null);
+    setTab('plan');
+
     api.get(`/api/challenges/${id}`)
-      .then(res => {
-        setChallenge(res.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
-      });
+      .then(res => setChallenge(res.data))
+      .catch(err => setError(err.message))
+      .finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    if (!id) return;
+    api.post('/api/events', { taskId: id, name: 'view_task', props: { path: window.location.pathname } }).catch(() => {});
+
+    api.get('/api/events/summary', { params: { task_id: id } })
+      .then(res => setEventsSummary(res.data))
+      .catch(() => {});
+
+    api.get('/api/artifacts', { params: { task_id: id, limit: 200 } })
+      .then(res => setArtifacts(Array.isArray(res.data) ? res.data : []))
+      .catch(() => {});
+  }, [id]);
+
+  async function saveNote() {
+    if (!noteDraft.trim()) return;
+    setSavingNote(true);
+    try {
+      const res = await api.post('/api/artifacts', {
+        taskId: id,
+        type: 'note',
+        status: 'draft',
+        tags: { origin: 'challenge-detail' },
+        contentMarkdown: noteDraft.trim(),
+      });
+      setArtifacts(prev => [res.data, ...prev]);
+      setNoteDraft('');
+      api.post('/api/events', { taskId: id, name: 'created_artifact', props: { type: 'note' } }).catch(() => {});
+    } finally {
+      setSavingNote(false);
+    }
+  }
 
   if (loading) return <div className="container"><p>Loading...</p></div>;
   if (error) return <div className="container"><p>Error: {error}</p></div>;
   if (!challenge) return <div className="container"><p>Challenge not found</p></div>;
+
+  const demoRoute = challenge?.solution?.data?.demoRoute || challenge?.solution?.data?.landingPage?.demoRoute;
 
   return (
     <div className="container">
@@ -47,35 +85,139 @@ function ChallengeDetail() {
         </div>
 
         <div className="solution">
-          <h2>Our Solution</h2>
-          <div className="solution-content">
-            {renderSolution(challenge.solution)}
+          <h2>Solution Hub</h2>
+
+          <div className="tabs">
+            <button className={`tab ${tab === 'plan' ? 'active' : ''}`} onClick={() => setTab('plan')}>Plan</button>
+            <button className={`tab ${tab === 'prototype' ? 'active' : ''}`} onClick={() => setTab('prototype')}>Prototype</button>
+            <button className={`tab ${tab === 'assets' ? 'active' : ''}`} onClick={() => setTab('assets')}>Assets</button>
+            <button className={`tab ${tab === 'metrics' ? 'active' : ''}`} onClick={() => setTab('metrics')}>Metrics</button>
+            <button className={`tab ${tab === 'export' ? 'active' : ''}`} onClick={() => setTab('export')}>Export</button>
           </div>
 
-          {renderDemoLink(challenge)}
+          {tab === 'plan' && (
+            <div className="solution-content">
+              {renderSolution(challenge.solution)}
+            </div>
+          )}
+
+          {tab === 'prototype' && (
+            <div className="solution-content">
+              {demoRoute ? (
+                <>
+                  <p>Try the runnable prototype used by this solution.</p>
+                  <Link
+                    to={demoRoute}
+                    className="demo-link"
+                    onClick={() => api.post('/api/events', { taskId: id, name: 'open_demo', props: { demoRoute } }).catch(() => {})}
+                  >
+                    Open Demo →
+                  </Link>
+                </>
+              ) : (
+                <p className="muted">No runnable demo attached for this task yet.</p>
+              )}
+            </div>
+          )}
+
+          {tab === 'assets' && (
+            <div className="solution-content">
+              <h3>Saved artifacts</h3>
+              {artifacts.length === 0 ? (
+                <p className="muted">No artifacts saved for this task yet.</p>
+              ) : (
+                <div className="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Updated</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {artifacts.map(a => (
+                        <tr key={a.id}>
+                          <td><strong>{a.type}</strong></td>
+                          <td>{a.status}</td>
+                          <td>{new Date(a.updatedAtMs).toLocaleString()}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
+              <h3>Add quick note</h3>
+              <textarea
+                value={noteDraft}
+                onChange={e => setNoteDraft(e.target.value)}
+                rows={6}
+                placeholder="Draft a note, copy, asset idea, or iteration…"
+                style={{ width: '100%', border: '1px solid #e5e7eb', borderRadius: 8, padding: '0.75rem', fontSize: '1rem' }}
+              />
+              <button className="primary-button" onClick={saveNote} disabled={savingNote || !noteDraft.trim()}>
+                {savingNote ? 'Saving…' : 'Save note'}
+              </button>
+            </div>
+          )}
+
+          {tab === 'metrics' && (
+            <div className="solution-content">
+              <h3>Leading indicators</h3>
+              {challenge?.solution?.data?.leadingIndicators ? (
+                <ul>
+                  {challenge.solution.data.leadingIndicators.map((m, idx) => (
+                    <li key={idx}>{m}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="muted">This solution doesn’t define leading indicators explicitly.</p>
+              )}
+
+              <h3>Event tracking (local)</h3>
+              {!eventsSummary ? (
+                <p className="muted">No events yet.</p>
+              ) : (
+                <>
+                  {eventsSummary.counts.length === 0 ? (
+                    <p className="muted">No events recorded yet for this task.</p>
+                  ) : (
+                    <ul>
+                      {eventsSummary.counts.map(c => (
+                        <li key={c.name}>
+                          <strong>{c.name}:</strong> {c.count}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+
+          {tab === 'export' && (
+            <div className="solution-content">
+              <p>Export the task brief + structured solution + saved artifacts.</p>
+              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                <a className="demo-link" href={`${API_BASE_URL}/api/export/${id}?format=markdown`} target="_blank" rel="noreferrer">
+                  Export Markdown →
+                </a>
+                <a className="demo-link" href={`${API_BASE_URL}/api/export/${id}?format=json`} target="_blank" rel="noreferrer">
+                  Export JSON →
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-function renderDemoLink(challenge) {
-  const demoRoute = challenge?.solution?.data?.demoRoute || challenge?.solution?.data?.landingPage?.demoRoute;
-  if (!demoRoute) return null;
-
-  return (
-    <div className="demo-cta">
-      <h3>Live Demo</h3>
-      <p>Try the logged-out prototype used in this solution.</p>
-      <Link to={demoRoute} className="demo-link">
-        Open Demo →
-      </Link>
-    </div>
-  );
-}
-
 function renderSolution(solution) {
   const data = solution.data;
+  const uniqStrings = (arr) => Array.from(new Set((arr || []).filter(Boolean)));
 
   switch (solution.type) {
     case 'spend-plan':
@@ -117,7 +259,7 @@ function renderSolution(solution) {
 
           <h4>Leading Indicators to Track</h4>
           <ul>
-            {data.leadingIndicators.map((ind, idx) => (
+            {uniqStrings(data.leadingIndicators).map((ind, idx) => (
               <li key={idx}>{ind}</li>
             ))}
           </ul>
@@ -198,8 +340,8 @@ function renderSolution(solution) {
 
           <h4>Governance: AI vs. Human</h4>
           <div className="data-section">
-            <p><strong>AI Generates:</strong> {data.governance.aiGenerates.join(', ')}</p>
-            <p><strong>Human Decides:</strong> {data.governance.humanDecides.join(', ')}</p>
+            <p><strong>AI Generates:</strong> {uniqStrings(data.governance.aiGenerates).join(', ')}</p>
+            <p><strong>Human Decides:</strong> {uniqStrings(data.governance.humanDecides).join(', ')}</p>
             <p><strong>Frequency:</strong> {data.governance.frequencyPerWeek}</p>
           </div>
         </div>
@@ -597,7 +739,7 @@ function renderSolution(solution) {
           <p><strong>Rationale:</strong> {data.rationale}</p>
 
           <h4>Big Idea</h4>
-          <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#2563eb' }}>
+          <p style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'var(--brand-700)' }}>
             {data.bigIdea}
           </p>
           <p>{data.bigIdeaExplanation}</p>
@@ -629,13 +771,13 @@ function renderSolution(solution) {
           <p><strong>Current Frustration:</strong> {data.currentFrustration}</p>
 
           <h4>Positioning</h4>
-          <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#2563eb' }}>
+          <p style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--brand-700)' }}>
             {data.positioning}
           </p>
 
           <h4>Message Pillars</h4>
           <ul>
-            {data.messagesPillars.map((pillar, idx) => (
+            {uniqStrings(data.messagesPillars).map((pillar, idx) => (
               <li key={idx}>{pillar}</li>
             ))}
           </ul>
@@ -658,7 +800,7 @@ function renderSolution(solution) {
 
           <h4>Success Metrics</h4>
           <ul>
-            {data.successMetrics.map((metric, idx) => (
+            {uniqStrings(data.successMetrics).map((metric, idx) => (
               <li key={idx}>{metric}</li>
             ))}
           </ul>

@@ -1,0 +1,55 @@
+{
+  "id": "comms-ai-strategy",
+  "title": "Communications AI Strategy",
+  "category": "Communications & Strategy",
+  "description": "Develop an AI strategy that enables Heidi to run a clear, consistent, and scalable global communications function.",
+  "requirements": [
+    "Identify 1-2 core communication challenges as a global company",
+    "Design 2-3 strategic applications of AI",
+    "Explain how strategy supports internal teams and PR agency partners",
+    "Outline governance, risk management, and trust safeguards"
+  ],
+  "solution": {
+    "type": "strategy",
+    "data": {
+      "coreChallenges": [
+        {
+          "challenge": "Message Consistency Across Markets",
+          "impact": "Agencies in different regions interpret brand messaging differently; inconsistent positioning weakens brand perception globally"
+        },
+        {
+          "challenge": "Speed vs. Accuracy in Global Updates",
+          "impact": "Manual monthly updates to Impact Hub create lag; agencies work from stale data; real-time changes aren't communicated consistently"
+        }
+      ],
+      "aiStrategy": [
+        {
+          "application": "AI Message Framework Generator",
+          "input": "Core message + market context (e.g., region, audience, campaign goal)",
+          "output": "3-5 localized message variations aligned to brand voice, with market-specific nuance",
+          "impact": "Agencies get message guardrails + flexibility; faster time to campaign launch; consistency preserved"
+        },
+        {
+          "application": "Automated Impact Hub Updates",
+          "input": "Real-time business metrics (signups, features shipped, funding announcements)",
+          "output": "Live dashboard + weekly email summary to agencies with key changes highlighted",
+          "impact": "Agencies always work from current data; reduces async back-and-forth"
+        },
+        {
+          "application": "AI Narrative Assistant",
+          "input": "Product announcement + target audience",
+          "output": "Story angle, key points, suggested media hooks, talking points for executives",
+          "impact": "Teams move from 'what should we say?' to 'how do we refine this narrative?' 10x faster"
+        }
+      ],
+      "governance": {
+        "keyRisk": "Over-automation: AI-generated messages lack human judgment about brand nuance, cultural sensitivity, or strategic timing",
+        "safeguards": [
+          "AI generates options; humans approve messaging before agency distribution",
+          "Monthly brand audit: review AI-generated messages for drift from core positioning",
+          "Agency feedback loop: agencies flag messages that felt off-brand or ineffective"
+        ]
+      }
+    }
+  }
+}

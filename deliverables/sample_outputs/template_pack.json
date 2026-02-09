@@ -1,0 +1,26 @@
+{
+  "specialty": "General Practice",
+  "tone": "concise",
+  "locale": "en",
+  "templates": [
+    {
+      "id": "routine-follow-up",
+      "title": "Routine follow-up",
+      "format": "SOAP",
+      "markdown": "## Subjective\n- Chief complaint:\n- Interval history:\n- Med adherence / side effects:\n- ROS (relevant):\n## Objective\n- Vitals:\n- Exam (focused):\n- Results reviewed:\n## Assessment\n- Problem list (prioritized):\n- Stability / change since last visit:\n## Plan\n- Continue / adjust meds:\n- Counseling:\n- Tests ordered:\n- Follow-up interval:\n- Safety netting:\n"
+    },
+    {
+      "id": "acute-visit",
+      "title": "Acute visit",
+      "format": "SOAP + red flags",
+      "markdown": "## Subjective\n- Chief complaint:\n- Onset / duration:\n- Severity / trajectory:\n- Associated symptoms:\n- Red flags (explicitly assessed):\n## Objective\n- Vitals:\n- Exam (focused):\n- POC tests / imaging (if any):\n## Assessment\n- Most likely diagnosis:\n- Differentials considered:\n- Reasoning (1-2 lines):\n## Plan\n- Treatment:\n- Patient instructions:\n- Return precautions (clear):\n- Follow-up plan:\n- Escalation if worse:\n"
+    },
+    {
+      "id": "referral-letter",
+      "title": "Referral / handoff",
+      "format": "SBAR",
+      "markdown": "## Situation\n- Reason for referral:\n- Urgency:\n- Key question you want answered:\n## Background\n- Relevant history:\n- Medications:\n- Allergies:\n- Pertinent negatives:\n## Assessment\n- Working diagnosis / concerns:\n- Key findings/results:\n## Recommendation\n- Requested action:\n- Suggested next steps:\n- Preferred communication loop closure:\n"
+    }
+  ],
+  "notes": "Templates are generic starter formats. In production, these would be customized per clinic and versioned."
+}

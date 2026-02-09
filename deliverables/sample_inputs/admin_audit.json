@@ -1,0 +1,11 @@
+{
+  "responses": {
+    "patientsPerDay": 22,
+    "workDaysPerWeek": 5,
+    "noteMinutesPerPatient": 7,
+    "afterHoursAdminMinutesPerDay": 70,
+    "interruptionsPerHour": 4,
+    "handoffsPerDay": 12
+  }
+}
+

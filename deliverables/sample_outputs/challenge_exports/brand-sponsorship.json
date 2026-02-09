@@ -1,0 +1,40 @@
+{
+  "id": "brand-sponsorship",
+  "title": "Brand Sponsorship Strategy",
+  "category": "Brand & Communications",
+  "description": "Develop a sponsorship strategy that helps Heidi become the most loved AI Care Partner among highly educated healthcare professionals.",
+  "requirements": [
+    "Choose a passion space where your target audience spends time as humans, not clinicians",
+    "Design 2-3 specific sponsorship ideas within those passion spaces",
+    "Outline activation ideas 'beyond the game'",
+    "Clear thinking about how to resonate with the consumer"
+  ],
+  "solution": {
+    "type": "brand-strategy",
+    "data": {
+      "country": "United Kingdom",
+      "passionSpace": "Marathon Running & Endurance Sports",
+      "rationale": "Clinicians are high-achievers who value precision, discipline, and pushing boundaries. Marathon training embodies all of this. Running communities are tight-knit and trust-based—perfect for seeding Heidi as 'the AI partner for the exhausted clinician.'",
+      "sponsorships": [
+        {
+          "name": "Marathon Finish Line Wellness Tent",
+          "concept": "Post-race recovery stations staffed by physical therapists using Heidi; recovery data captured, runners learn about clinician burnout parallels",
+          "activation": "LinkedIn campaign: 'Clinicians who run marathons know exhaustion. Heidi eliminates the invisible marathon of admin work.'",
+          "reach": "5,000 elite runners, 70% in healthcare professions"
+        },
+        {
+          "name": "Running Podcast Series Sponsorship",
+          "concept": "Interview clinicians who are also ultra-runners; discuss burnout, time management, precision",
+          "activation": "Branded content: 'The Clinician Runner' series shared across medical communities",
+          "reach": "50,000+ monthly listeners, 40% healthcare professionals"
+        },
+        {
+          "name": "Running App Integration (Strava)",
+          "concept": "Heidi co-brands with running community; feature: 'Your running splits are precise. Your charting should be too.'",
+          "activation": "Micro-targeted ads to doctors in running groups + organic community growth",
+          "reach": "High-intent audience: healthcare professionals in fitness communities"
+        }
+      ]
+    }
+  }
+}

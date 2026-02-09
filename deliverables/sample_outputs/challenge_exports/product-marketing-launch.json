@@ -1,0 +1,72 @@
+{
+  "id": "product-marketing-launch",
+  "title": "Product Marketing: Templates Feature Launch",
+  "category": "Product Marketing",
+  "description": "Create a launch plan for a new Heidi Templates upgrade feature (easier creation, version history, chat requests).",
+  "requirements": [
+    "Define audience + problem (max 8 lines)",
+    "Positioning + key message",
+    "2 launch assets (email, in-app, help center, or talk track)",
+    "Channel plan and timeline",
+    "Success metrics + risks"
+  ],
+  "solution": {
+    "type": "launch-plan",
+    "data": {
+      "audience": "Clinic Admin / Template Manager",
+      "jobToBeDone": "Create and maintain templates that clinicians will actually use, without fear of breaking working processes",
+      "currentFrustration": "Creating templates is cumbersome; editing is scary (breaks workflows); no way to learn from past versions or iterate safely",
+      "positioning": "Template Builder: Confident, iterative template management for admins who own clinic workflows.",
+      "messagesPillars": [
+        "Pillar 1: Control - You have full visibility and can revert any change instantly",
+        "Pillar 2: Collaboration - Ask for feedback without giving away control (chat requests)",
+        "Pillar 3: Confidence - Edit templates without fear of breaking workflows"
+      ],
+      "launchAssets": {
+        "asset1": {
+          "type": "Email Campaign",
+          "subject": "You can now edit templates without the fear",
+          "body": "Hi [Clinic Name], we heard from your team: editing templates felt risky. We built confidence back in. New: version history, collaborative editing, instant rollback.",
+          "cta": "See what's new in Templates"
+        },
+        "asset2": {
+          "type": "In-App Modal",
+          "headline": "Templates just got smarter",
+          "body": "Edit with confidence. Revert instantly. Collaborate safely.",
+          "cta": "Learn more"
+        }
+      },
+      "channelPlan": {
+        "day0": [
+          "In-app banner",
+          "Product update page"
+        ],
+        "week1": [
+          "Email to admins",
+          "CS teams notified",
+          "Sales talk track released"
+        ],
+        "week2": [
+          "Community post",
+          "Help center updated",
+          "Webinar for existing customers"
+        ]
+      },
+      "successMetrics": [
+        "Adoption: % of clinics enabling version history within 14 days",
+        "Usage: average templates edited per clinic (trend up = confidence increase)",
+        "Support: reduction in 'how do I revert' support tickets"
+      ],
+      "risks": [
+        {
+          "risk": "Low feature awareness (admins don't know it exists)",
+          "mitigation": "In-app notification + email; CS team mentions in check-in calls"
+        },
+        {
+          "risk": "Feature too complex for non-technical admins",
+          "mitigation": "Simple 2-min walkthrough video; offer onboarding call for enterprise customers"
+        }
+      ]
+    }
+  }
+}

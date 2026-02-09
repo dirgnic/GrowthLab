@@ -1,0 +1,74 @@
+{
+  "id": "shared-patient-summary",
+  "title": "Shared Patient Summary Without Creating Liability (Capsule)",
+  "category": "Product & Legal",
+  "description": "Design and prototype the information architecture and permission model for a shared Patient Summary that is genuinely useful, clinically safe, and low overhead.",
+  "requirements": [
+    "Working prototype showing what data appears in summary, how visibility differs by role",
+    "Clear data model: what is summarized, what is excluded, who controls visibility",
+    "Example summaries as seen by different practitioners",
+    "Explanation of how this avoids CYA note inflation"
+  ],
+  "solution": {
+    "type": "product-architecture",
+    "data": {
+      "architecture": "Structured, Role-Based Summaries",
+      "demoRoute": "/tools/capsule-summary",
+      "dataModel": {
+        "includedInSummary": [
+          {
+            "field": "Allergies & Contraindications",
+            "visible_to": "All practitioners",
+            "format": "Structured (dropdown)"
+          },
+          {
+            "field": "Active Diagnoses",
+            "visible_to": "All practitioners (redacted by role)",
+            "format": "ICD-10 code + patient-friendly name"
+          },
+          {
+            "field": "Active Treatments",
+            "visible_to": "All practitioners",
+            "format": "Medication list, therapy type"
+          },
+          {
+            "field": "Last 3 Clinical Summaries",
+            "visible_to": "Relevant practitioners only (e.g., GP sees physio summary, not mental health details)",
+            "format": "2-3 sentence objective summary (not full notes)"
+          }
+        ],
+        "excludedFromSummary": [
+          "Full clinical notes (privacy)",
+          "Mental health details (unless explicitly shared)",
+          "Clinician judgments or informal language",
+          "Billing/administrative notes"
+        ]
+      },
+      "permissionModel": {
+        "gpView": [
+          "Allergies",
+          "Diagnoses",
+          "Active treatments",
+          "Recent summaries from allied health"
+        ],
+        "physioView": [
+          "Allergies",
+          "Diagnoses related to musculoskeletal",
+          "Relevant treatment history"
+        ],
+        "psychologistView": [
+          "Allergies",
+          "Diagnoses related to mental health",
+          "Medication history"
+        ]
+      },
+      "safetyMechanisms": [
+        "Summaries are auto-generated from structured data, not copy-paste from notes",
+        "Removes liability-inducing language ('I'm worried about X' → 'Monitor for X')",
+        "Audit log: every view is logged with timestamp and access reason",
+        "Patient consent: patient explicitly chooses what to share and with whom",
+        "Opt-out by practitioner: any practitioner can request data be hidden from specific colleagues"
+      ]
+    }
+  }
+}

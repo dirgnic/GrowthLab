@@ -9,13 +9,13 @@ function Home() {
   useEffect(() => {
     api.get('/api/challenges')
       .then(res => setChallengeCount(res.data.length))
-      .catch(err => console.error(err));
+      .catch(() => {});
   }, []);
 
   return (
     <div className="container">
       <div className="hero">
-        <h1>Heidi Challenge Portfolio</h1>
+        <h1>Heidi Launchpad</h1>
         <p>Solutions to all {challengeCount} Heidi growth, product, and operations challenges</p>
       </div>
 
@@ -49,7 +49,7 @@ function Home() {
             style={{
               display: 'inline-block',
               padding: '1rem 2rem',
-              background: '#2563eb',
+              background: 'var(--brand-600)',
               color: 'white',
               textDecoration: 'none',
               borderRadius: '8px',

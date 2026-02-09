@@ -1,0 +1,91 @@
+{
+  "id": "paid-media-a",
+  "title": "Paid Media Task A — Media Buying & Growth",
+  "category": "Growth & Paid Media",
+  "description": "Design and partially simulate a paid media–led market entry for Heidi in a country where brand awareness is zero, search demand for 'AI medical scribe' is negligible, and clinicians are not actively shopping for this solution. You are given $50,000 over 90 days.",
+  "requirements": [
+    "A 90-day spend plan (channel mix + sequencing)",
+    "A clear funnel from first impression → early user",
+    "A defined set of leading indicators you would track before CPA matters",
+    "At least: 1 awareness ad, 1 mid-funnel retargeting ad, 1 landing page or logged-out experience",
+    "A concrete mechanism for capturing early users (waitlist, tool, demo flow, etc.)"
+  ],
+  "solution": {
+    "type": "spend-plan",
+    "data": {
+      "market": "Australia",
+      "budget": 50000,
+      "timeline": 90,
+      "channels": [
+        {
+          "name": "Meta (Facebook/Instagram)",
+          "allocation": 20000,
+          "percentage": 40,
+          "purpose": "Awareness + cold traffic",
+          "sequencing": "Days 1-90"
+        },
+        {
+          "name": "Google Search & Display",
+          "allocation": 15000,
+          "percentage": 30,
+          "purpose": "Intent capture + retargeting",
+          "sequencing": "Days 15-90"
+        },
+        {
+          "name": "LinkedIn",
+          "allocation": 10000,
+          "percentage": 20,
+          "purpose": "B2B + clinic network targeting",
+          "sequencing": "Days 30-90"
+        },
+        {
+          "name": "Influencer + Community",
+          "allocation": 5000,
+          "percentage": 10,
+          "purpose": "Earned trust + local credibility",
+          "sequencing": "Days 45-90"
+        }
+      ],
+      "funnel": {
+        "impression": "Cold awareness: 'Clinicians are drowning in admin. We built AI to fix it.'",
+        "consideration": "Retargeting: show ROI calculator, customer stories, security/compliance",
+        "conversion": "Landing page + demo booking + 14-day free trial"
+      },
+      "leadingIndicators": [
+        "Click-through rate (CTR) by creative & audience",
+        "Landing page engagement (scroll depth, time on page)",
+        "Demo booking rate",
+        "Waitlist growth rate",
+        "Video watch rate (if video ads used)",
+        "Community mentions & organic shares"
+      ],
+      "ads": {
+        "awareness": {
+          "platform": "Meta (Reels + Feed)",
+          "headline": "You finish clinic at 5pm. Your work doesn’t.",
+          "primaryText": "Most clinicians do a second shift at night: notes. Heidi helps you get that time back — without sacrificing quality.",
+          "creativeDirection": "Close-up: clinician closing laptop at 9:47pm; overlay text: 'Unpaid shift.' Cut to calm consult moment.",
+          "cta": "Get the checklist"
+        },
+        "retargeting": {
+          "platform": "Meta Retargeting + Google Display",
+          "headline": "How many hours does your clinic lose to admin?",
+          "primaryText": "Answer 6 questions to see your annual admin load — then get a concrete plan to cut it.",
+          "creativeDirection": "Simple calculator UI + result screen (hours/year).",
+          "cta": "Run the audit"
+        }
+      },
+      "landingPage": {
+        "name": "Admin Burden Audit (logged-out tool)",
+        "valueProp": "A 60-second workflow audit that estimates admin hours/year and recommends the top 3 fixes.",
+        "sections": [
+          "Problem framing (burnout + after-hours work)",
+          "Audit inputs (6 questions)",
+          "Personalized report (hours + $ proxy)",
+          "CTA: waitlist / demo request"
+        ],
+        "demoRoute": "/tools/admin-audit"
+      }
+    }
+  }
+}

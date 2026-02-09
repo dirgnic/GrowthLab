@@ -1,0 +1,68 @@
+{
+  "id": "self-serve-onboarding",
+  "title": "Self-Serve Onboarding for Heidi Calls (Northside Clinic)",
+  "category": "Product & Implementation",
+  "description": "Design and prototype a self-serve onboarding workflow that allows a clinic to configure Heidi Calls to fit their needs.",
+  "requirements": [
+    "Runnable/clickable prototype showing onboarding flow from clinic perspective",
+    "Questions, templates, or steps used to configure the agent",
+    "How different inputs lead to different call-handling behavior",
+    "Walkthrough showing how this reduces onboarding from weeks to mostly self-serve"
+  ],
+  "solution": {
+    "type": "product-flow",
+    "data": {
+      "currentState": "Manual onboarding takes weeks; requires back-and-forth with Heidi team",
+      "newState": "Self-serve questionnaire; 80% of clinics can configure independently in 30 minutes",
+      "demoRoute": "/tools/calls-onboarding",
+      "onboardingFlow": [
+        {
+          "step": 1,
+          "title": "Clinic Profile",
+          "questions": [
+            "Practice type (GP, multi-specialty, allied health)",
+            "Number of locations",
+            "Staff size"
+          ],
+          "output": "Determines template baseline and complexity"
+        },
+        {
+          "step": 2,
+          "title": "Call Handling Rules",
+          "section": "Business Hours",
+          "questions": [
+            "Which doctors accept new patients?",
+            "Which calls need approval?",
+            "Preferred escalation path?"
+          ],
+          "output": "Call routing rules"
+        },
+        {
+          "step": 3,
+          "title": "After-Hours Behavior",
+          "questions": [
+            "Should calls go to voicemail or nurse triage?",
+            "Which patients get emergency access?"
+          ],
+          "output": "After-hours routing"
+        },
+        {
+          "step": 4,
+          "title": "Communication Preferences",
+          "questions": [
+            "Tone preference (formal, friendly, clinical)?",
+            "Any phrases to avoid?"
+          ],
+          "output": "AI prompt customization"
+        },
+        {
+          "step": 5,
+          "title": "Review & Activate",
+          "preview": "Sample call transcript using clinic's rules → clinic approves or adjusts"
+        }
+      ],
+      "intelligentDefaults": "System pre-fills common patterns based on clinic type; clinic edits, doesn't start from scratch",
+      "expectedOutcome": "From weeks → 30-minute setup; 20% manual support for edge cases"
+    }
+  }
+}

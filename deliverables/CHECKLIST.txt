@@ -1,0 +1,85 @@
+Challenge Deliverables Checklist
+
+Legend: [x] done  [~] partial/optional  [ ] missing
+
+1) Paid Media Task A — Media Buying & Growth (paid-media-a)
+- [x] 90-day spend plan — /challenges/paid-media-a
+- [x] Funnel (impression → early user) — /challenges/paid-media-a
+- [x] Leading indicators (pre-CPA) — /challenges/paid-media-a + events in /dashboard
+- [x] Awareness ad — /challenges/paid-media-a
+- [x] Mid-funnel retargeting ad — /challenges/paid-media-a
+- [x] Landing/logged-out experience — /tools/admin-audit
+- [x] Early user capture mechanism — waitlist form on /tools/admin-audit
+- [x] “Next step” concrete output — template pack generator on /tools/admin-audit (saved to Assets)
+
+2) Fully Working AI Creative System (paid-media-b)
+- [x] Inputs persona/market/stage — /tools/creative-generator
+- [x] Outputs ready-to-run creatives — /tools/creative-generator
+- [x] Required set generator (3 awareness, 2 mid, 1 conversion, 1 non-English) — /tools/creative-generator → “Generate + save required set”
+- [x] Creative management/tagging/iteration — /tools/creative-library (approve/reject) + artifacts
+- [x] System diagram AI vs human — /tools/creative-diagram
+- [x] Image step demonstrated:
+  - [x] Local tool equivalent (SVG mock) — /tools/media-studio
+  - [~] OpenRouter image models (Flux/Riverflow/Gemini) — /tools/media-studio toggle
+- [x] E2E proof — /tools/creative-audit + /dashboard
+- [x] Optional automation (n8n) — n8n/creative-pipeline.workflow.json + POST /api/webhooks/n8n/creative
+- [~] Claude-model run (optional proof) — select anthropic/claude-3.5-sonnet in /tools/creative-generator and generate creatives
+
+3) Build One Organic Flywheel (organic-flywheel)
+- [x] Live asset/prototype — /tools/admin-audit
+- [x] Discovery path — /challenges/organic-flywheel
+- [x] Conversion mechanism — waitlist on /tools/admin-audit
+- [x] Simple growth model — /challenges/organic-flywheel
+
+4) Logged-Out Web Experience That Earns Traffic (logged-out-experience)
+- [x] Adjacent problem identified — /challenges/logged-out-experience
+- [x] Live logged-out experience — /tools/note-templates
+- [x] Why discover / why rank — /challenges/logged-out-experience
+- [x] Conversion path to signup — waitlist on /tools/note-templates
+
+5) 10× a Growth Function with AI (growth-ai-enablement)
+- [x] Working prototype — /tools/growth-ai-studio
+- [x] Before/after comparison — /challenges/growth-ai-enablement
+- [x] Demo/walkthrough — tool is runnable + artifacts saved
+
+6) Brand Sponsorship Strategy (brand-sponsorship)
+- [x] Passion space + rationale — /challenges/brand-sponsorship
+- [x] 2–3 sponsorship ideas + beyond-the-game activations — /challenges/brand-sponsorship
+
+7) Lifecycle System That Moves Metrics (lifecycle-system)
+- [x] Segments + triggers + channels — /challenges/lifecycle-system
+- [x] Trigger logic (not calendar-only) — /tools/lifecycle-simulator
+- [x] Measurement beyond opens/clicks — /challenges/lifecycle-system + simulator
+
+8) Incentive Design (Kinetic) (incentive-design)
+- [x] Clickable prototype (opt-in/out) — /tools/kinetic-incentives
+- [x] What info shared and when — /tools/kinetic-incentives
+- [x] Incentives reinforced + scaling logic — /tools/kinetic-incentives
+
+9) Referral Infrastructure (Pathway) (referral-infrastructure)
+- [x] E2E prototype: referrer/patient/receiver — /tools/pathway-referrals
+- [x] Drop-off reduction + continuity + loop closure — /tools/pathway-referrals
+
+10) Shared Patient Summary (Capsule) (shared-patient-summary)
+- [x] Prototype showing data + role visibility + sensitive handling — /tools/capsule-summary
+- [x] Data model + permission model + safety — /challenges/shared-patient-summary
+
+11) Self-Serve Onboarding (Heidi Calls) (self-serve-onboarding)
+- [x] Runnable onboarding wizard — /tools/calls-onboarding
+- [x] Inputs change call-handling behavior — scenario sim on same page
+- [x] Walkthrough script — included on the page
+
+12) Intelligent Voicemail (intelligent-voicemail)
+- [x] Working triage prototype — /tools/voicemail-triage
+- [x] Prioritization + summary + queue + closure — same page
+- [~] AI pipeline option — toggle in /tools/voicemail-triage
+
+13) Copywriter Campaign (copywriter-campaign)
+- [x] Insight + rationale + big idea + taglines + manifesto — /challenges/copywriter-campaign
+
+14) Product Marketing Launch Plan (product-marketing-launch)
+- [x] Audience/problem, positioning, assets, timeline, metrics/risks — /challenges/product-marketing-launch
+
+15) Comms AI Strategy (comms-ai-strategy)
+- [x] Challenges, 2–3 AI applications, governance — /challenges/comms-ai-strategy
+

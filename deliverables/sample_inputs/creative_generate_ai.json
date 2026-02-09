@@ -1,0 +1,10 @@
+{
+  "model": "openai/gpt-4o-mini",
+  "inputs": {
+    "persona": "Practice manager",
+    "market": "Romania",
+    "funnelStage": "Awareness",
+    "language": "en"
+  }
+}
+

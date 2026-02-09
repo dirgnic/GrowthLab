@@ -1,0 +1,66 @@
+{
+  "id": "lifecycle-system",
+  "title": "Lifecycle System That Moves Metrics",
+  "category": "Lifecycle & Growth",
+  "description": "Design and demonstrate a lifecycle system that meaningfully impacts metrics like free → paid conversion, activation, or retention.",
+  "requirements": [
+    "Lifecycle architecture: segments, behavioral triggers, channels",
+    "Real message assets + in-product mock ups",
+    "Trigger logic (no calendar-only campaigns)",
+    "A measurement framework that goes beyond opens and clicks"
+  ],
+  "solution": {
+    "type": "lifecycle-system",
+    "data": {
+      "focusMetrics": [
+        "Free → Paid Conversion",
+        "Time to First Value",
+        "Activation"
+      ],
+      "demoRoute": "/tools/lifecycle-simulator",
+      "segments": [
+        {
+          "name": "Power User",
+          "criteria": "Completes 20+ notes, uses 3+ features, logs in 5+ days/week",
+          "trigger": "Day 7 of usage",
+          "message": "You're getting real value. Upgrade to unlock team collaboration.",
+          "channel": "In-app + Email"
+        },
+        {
+          "name": "Struggling User",
+          "criteria": "Completes 0-5 notes, bounces after 2-3 logins",
+          "trigger": "Day 3 of low engagement",
+          "message": "We noticed you haven't tried templates yet. Here's a quick win.",
+          "channel": "In-app modal + Slack notification"
+        },
+        {
+          "name": "Feature Explorer",
+          "criteria": "Tries multiple features, low usage volume",
+          "trigger": "Feature X usage",
+          "message": "You explored AI summaries. Here's how teams use it for faster approvals.",
+          "channel": "Email + In-app"
+        }
+      ],
+      "conversionFlow": {
+        "step1": "User activated (first note completed)",
+        "step2": "Offer value: templates, time savings, compliance features",
+        "step3": "Friction removal: free trial for team features",
+        "step4": "Social proof: show peer usage, ROI calculator",
+        "step5": "Upgrade offer: timing based on engagement, not calendar"
+      },
+      "measurement": {
+        "leadingIndicators": [
+          "Time to first note",
+          "Feature adoption rate",
+          "Days to 10 notes"
+        ],
+        "laggingIndicators": [
+          "Free → Paid conversion rate",
+          "LTV",
+          "Expansion revenue"
+        ],
+        "cohortTracking": "Compare conversion rates by segment to measure campaign impact"
+      }
+    }
+  }
+}

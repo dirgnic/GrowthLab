@@ -1,0 +1,27 @@
+{
+  "id": "copywriter-campaign",
+  "title": "Brand Campaign: Copywriter Challenge",
+  "category": "Brand & Messaging",
+  "description": "Develop a brand campaign that helps Heidi become the most loved AI Care Partner among healthcare professionals.",
+  "requirements": [
+    "Choose an insight to underpin campaign (afterhours work, computer in the room, or note-taking style)",
+    "Craft big idea with clear rationale",
+    "2-3 taglines for billboard/landing page",
+    "200-300 word manifesto for clinicians"
+  ],
+  "solution": {
+    "type": "brand-campaign",
+    "data": {
+      "selectedInsight": "The Computer in the Room",
+      "rationale": "Clinicians want to see patients; the EHR forces them to see a screen instead. This is visceral and relatable—Heidi should position itself as removing the computer from the equation.",
+      "bigIdea": "Heidi puts you back in the room with your patients.",
+      "bigIdeaExplanation": "Instead of talking about what Heidi does (scribing), we talk about what clinicians want (patient focus). Heidi is the tool that makes the computer invisible. The campaign positions Heidi not as a product, but as an enabler of human care.",
+      "taglines": [
+        "Your notes don't have to cost you your patient.",
+        "The AI that knows when to be quiet.",
+        "Focus on the patient. We'll handle the paperwork."
+      ],
+      "manifesto": "Manifesto: In Modern Medicine, There Are Three Entities\n\nYou, your patient, and a computer. For too long, the computer wins. It demands your attention, your clicks, your focus. Clinicians spend hours after hours doing invisible work—data entry, formatting, compliance checkboxes. Work that doesn't heal anyone.\n\nHeidi is different. We're not another tool demanding your attention. We're the tool that gets out of the way. We listen to your patient, we understand your specialty, we write your notes the way you would—so you can keep doing what matters: being present, asking the right questions, making the decisions only you can make.\n\nHeidi isn't a scribe. It's your advocate in the room. It's proof that AI in healthcare should amplify human connection, not replace it. That technology should serve clinicians, not the other way around.\n\nYou became a clinician to care for people. Heidi makes sure that's what you spend your time on."
+    }
+  }
+}

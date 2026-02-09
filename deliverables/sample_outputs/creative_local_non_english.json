@@ -1,0 +1,58 @@
+{
+  "inputs": {
+    "persona": "GP",
+    "market": "Romania",
+    "funnelStage": "Mid-Funnel",
+    "language": "es"
+  },
+  "creatives": [
+    {
+      "id": "mid-funnel-1",
+      "persona": "GP",
+      "market": "Romania",
+      "funnelStage": "Mid-Funnel",
+      "language": "es",
+      "headline": "Tu consulta termina. El papeleo no.",
+      "primaryText": "For GPs in Romania: reduce admin load without sacrificing note quality.",
+      "cta": "Ver cómo funciona",
+      "tags": [
+        "mid-funnel",
+        "gp",
+        "romania"
+      ],
+      "format": "Square (1080×1080) - static"
+    },
+    {
+      "id": "mid-funnel-2",
+      "persona": "GP",
+      "market": "Romania",
+      "funnelStage": "Mid-Funnel",
+      "language": "es",
+      "headline": "Menos pantalla. Más paciente.",
+      "primaryText": "For GPs in Romania: reduce admin load without sacrificing note quality.",
+      "cta": "Ver cómo funciona",
+      "tags": [
+        "mid-funnel",
+        "gp",
+        "romania"
+      ],
+      "format": "Square (1080×1080) - static"
+    },
+    {
+      "id": "mid-funnel-3",
+      "persona": "GP",
+      "market": "Romania",
+      "funnelStage": "Mid-Funnel",
+      "language": "es",
+      "headline": "Tus notas, tu estilo — más rápido.",
+      "primaryText": "For GPs in Romania: reduce admin load without sacrificing note quality.",
+      "cta": "Ver cómo funciona",
+      "tags": [
+        "mid-funnel",
+        "gp",
+        "romania"
+      ],
+      "format": "Square (1080×1080) - static"
+    }
+  ]
+}
