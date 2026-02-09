@@ -6,7 +6,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from challenges import get_all_challenges, get_challenge_by_id
 from tools import build_admin_audit_report, generate_creatives, generate_template_pack
-from ai_client import get_provider, is_configured as ai_is_configured
+from ai_client import AIError, get_provider, is_configured as ai_is_configured
 from ai_pipelines import generate_creatives_via_openai, generate_image_via_openrouter, triage_voicemail_via_openai
 from ai_pipelines import generate_experiment_plan_via_ai
 from storage import (
@@ -32,6 +32,25 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 init_db(DEFAULT_DB_PATH)
+
+def _ai_error_response(err: Exception):
+    msg = str(err)
+    # ai_client formats: "AI HTTPError: {code} {detail}"
+    if isinstance(err, AIError) and msg.startswith("AI HTTPError:"):
+        parts = msg.split(" ", 3)
+        try:
+            code = int(parts[2])
+        except Exception:
+            code = 502
+        extra = None
+        if code == 402:
+            extra = "OpenRouter reports insufficient credits. Add credits or switch to deterministic mode."
+        elif code == 401:
+            extra = "Invalid API key. Verify OPENROUTER_API_KEY / OPENAI_API_KEY and restart the backend."
+        elif code == 429:
+            extra = "Rate limited. Try again or switch models."
+        return jsonify({"error": {"message": msg, "hint": extra, "status": code}}), code
+    return jsonify({"error": msg}), 500
 
 @app.route('/api/challenges', methods=['GET'])
 def challenges():
@@ -260,6 +279,8 @@ def ai_creative_generate():
 
     try:
         out = generate_creatives_via_openai(inputs, model=model)
+    except AIError as e:
+        return _ai_error_response(e)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -276,6 +297,8 @@ def ai_voicemail_triage():
 
     try:
         out = triage_voicemail_via_openai(inputs, model=model)
+    except AIError as e:
+        return _ai_error_response(e)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -293,6 +316,8 @@ def ai_media_generate():
     # For now, we assume OpenRouter models for image generation.
     try:
         out = generate_image_via_openrouter(inputs, model=model)
+    except AIError as e:
+        return _ai_error_response(e)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -309,6 +334,8 @@ def ai_growth_experiment_plan():
 
     try:
         out = generate_experiment_plan_via_ai(inputs, model=model)
+    except AIError as e:
+        return _ai_error_response(e)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
